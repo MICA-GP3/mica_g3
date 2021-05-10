@@ -1,3 +1,6 @@
+//SCSJ3623 Mobile Application Programming
+//Section 02
+
 //GROUP3 - MICA [MIDAH - ISAAC - CHU NING - ATIQAH]
 //HASTA CAR RENTAL
 
