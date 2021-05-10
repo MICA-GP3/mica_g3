@@ -1,12 +1,16 @@
-//SCSJ3623 Mobile Application Programming
-//Section 02
-
+//SCSJ3623 MOBILE APPLICATION PROGRAMMING
+//SECTION 02
+//DR. JOHANNA AHMAD
 //GROUP3 - MICA [MIDAH - ISAAC - CHU NING - ATIQAH]
 //HASTA CAR RENTAL
 
 //PULL By IZ
 
 //hello from cn
+
+//PULL By Atiqah
+
+//hello from atqhcomel
 
 import 'package:flutter/material.dart';
 
