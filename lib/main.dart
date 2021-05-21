@@ -20,6 +20,6 @@ import 'package:hasta_rental/screen/main_screen/mainpage.dart';
 void main() => runApp(MaterialApp(
       title: 'Hasta Car Rental',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(primarySwatch: Colors.amber),
       home: MainPage(),
     ));

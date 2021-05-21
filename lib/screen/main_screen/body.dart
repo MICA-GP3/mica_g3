@@ -15,7 +15,12 @@ class _bodystate extends State<Body> {
       //child: child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 1,
-        items: [],
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.people), title: Text('Friends')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.people), title: Text('Friends')),
+        ],
       ),
     );
   }

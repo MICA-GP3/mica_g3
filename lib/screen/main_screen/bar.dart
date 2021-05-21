@@ -15,13 +15,13 @@ class _barstate extends State<Bar> {
   Widget build(BuildContext context) {
     return Container(
       child: AppBar(
-        //title: Text("Hasta Car Rental"),
-        title: Image.asset(
-          'images/HCR.png',
-          scale: 10,
-        ),
-        centerTitle: true,
-      ),
+          //title: Text("Hasta Car Rental"),
+          title: Image.asset(
+            'images/HCR.png',
+            scale: 10,
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.white),
     );
   }
 }
