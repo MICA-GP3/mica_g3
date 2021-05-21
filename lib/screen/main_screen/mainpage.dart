@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'body.dart';
 import 'bar.dart';
 
-class mainpage extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
-  _nameState createState() => _nameState();
+  _mainpage createState() => _mainpage();
 }
 
-class _nameState extends State<mainpage> {
+class _mainpage extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Container(

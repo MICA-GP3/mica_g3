@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class Bar extends StatefulWidget implements PreferredSizeWidget {
@@ -5,14 +7,21 @@ class Bar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(50.0);
 
   @override
-  _nameState createState() => _nameState();
+  _barstate createState() => _barstate();
 }
 
-class _nameState extends State<Bar> {
+class _barstate extends State<Bar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        //child: child,
-        );
+      child: AppBar(
+        //title: Text("Hasta Car Rental"),
+        title: Image.asset(
+          'images/HCR.png',
+          scale: 10,
+        ),
+        centerTitle: true,
+      ),
+    );
   }
 }

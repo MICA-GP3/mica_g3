@@ -11,8 +11,12 @@ class Body extends StatefulWidget implements PreferredSizeWidget {
 class _bodystate extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        //child: child,
-        );
+    return Scaffold(
+      //child: child,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        items: [],
+      ),
+    );
   }
 }
