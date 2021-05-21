@@ -14,6 +14,11 @@ class _mainpage extends State<MainPage> {
       child: Scaffold(
         appBar: Bar(),
         body: Body(),
+        endDrawer: Drawer(
+          child: ListView(
+            children: <Widget>[DrawerHeader(child: Text('Header'))],
+          ),
+        ),
       ),
     );
   }
