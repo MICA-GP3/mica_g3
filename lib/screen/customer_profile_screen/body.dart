@@ -41,7 +41,13 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
     return ListTile(
       title: TextFormField(
         initialValue: value,
-        decoration: InputDecoration(labelText: title, hintText: title),
+        decoration: InputDecoration(
+            labelText: title,
+            hintText: title,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Colors.amber))),
         onChanged: onchanged,
       ),
     );

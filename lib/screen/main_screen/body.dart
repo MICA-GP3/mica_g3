@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hasta_rental/screen/customer_profile_screen/customer_profile.dart';
 
 class Body extends StatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(50.0);
 
   @override
-  _bodystate createState() => _bodystate();
+  _BodyState createState() => _BodyState();
 }
 
-class _bodystate extends State<Body> {
-  int _index = 0;
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,46 +37,6 @@ class _bodystate extends State<Body> {
           )
         ],
       ),
-
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index,
-        type: BottomNavigationBarType.fixed,
-        onTap: _onTap,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Calendar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notification',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-      ),
     );
-  }
-
-  void _onTap(int ind) {
-    setState(() {
-      _index = ind;
-      _changeRoute();
-    });
-  }
-
-  Future<dynamic> _changeRoute() {
-    switch (_index) {
-      case 3:
-        return Navigator.push(context, CustomerProfile.route());
-      default:
-        return null;
-    }
   }
 }
