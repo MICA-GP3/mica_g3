@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screen/customer_profile_screen/customer_profile.dart';
 import 'body.dart';
 import 'bar.dart';
 
 class MainPage extends StatefulWidget {
   @override
-  _mainpage createState() => _mainpage();
+  _Mainpage createState() => _Mainpage();
 }
 
-class _mainpage extends State<MainPage> {
+class _Mainpage extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +17,13 @@ class _mainpage extends State<MainPage> {
         body: Body(),
         endDrawer: Drawer(
           child: ListView(
-            children: <Widget>[DrawerHeader(child: Text('Header'))],
+            children: <Widget>[
+              DrawerHeader(child: Text('Header')),
+              ListTile(
+                title: Text('Profile'),
+                onTap: () => Navigator.push(context, CustomerProfile.route()),
+              )
+            ],
           ),
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screen/customer_profile_screen/customer_profile.dart';
 
 class Body extends StatefulWidget implements PreferredSizeWidget {
   @override
@@ -9,6 +10,7 @@ class Body extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _bodystate extends State<Body> {
+  int _index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +41,9 @@ class _bodystate extends State<Body> {
       ),
 
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
+        currentIndex: _index,
         type: BottomNavigationBarType.fixed,
+        onTap: _onTap,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -61,5 +64,21 @@ class _bodystate extends State<Body> {
         ],
       ),
     );
+  }
+
+  void _onTap(int ind) {
+    setState(() {
+      _index = ind;
+      _changeRoute();
+    });
+  }
+
+  Future<dynamic> _changeRoute() {
+    switch (_index) {
+      case 3:
+        return Navigator.push(context, CustomerProfile.route());
+      default:
+        return null;
+    }
   }
 }
