@@ -34,7 +34,7 @@ class _BodyState extends State<Body> {
             padding: const EdgeInsets.all(20),
             child: const Text("data2"),
             color: Colors.amber,
-          )
+          ),
         ],
       ),
     );

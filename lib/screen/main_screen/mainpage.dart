@@ -18,13 +18,35 @@ class _MainPage extends State<MainPage> {
         appBar: Bar(),
         body: Body(),
         endDrawer: Drawer(
-          child: ListView(
+          child: Column(
             children: <Widget>[
               DrawerHeader(child: Text('Header')),
               ListTile(
                 title: Text('Profile'),
                 onTap: () => Navigator.push(context, CustomerProfile.route()),
-              )
+              ),
+              Expanded(
+                  child: Align(
+                alignment: Alignment.bottomCenter,
+                child: ListTile(
+                  leading: Icon(Icons.logout),
+                  title: Text("Log Out"),
+                  tileColor: Colors.amber,
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                              //title: Text("Log Out?"),
+                              content: Text("Are you sure?"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {}, child: Text("Yes")),
+                                TextButton(onPressed: () {}, child: Text("No")),
+                              ],
+                            ));
+                  },
+                ),
+              )),
             ],
           ),
         ),
