@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hasta_rental/models/customer.dart';
 import 'package:hasta_rental/screen/customer_profile_screen/customer_profile.dart';
 
-class Body extends StatelessWidget implements PreferredSizeWidget {
-  @override
-  Size get preferredSize => Size.fromHeight(50.0);
-
+class Body extends StatelessWidget {
   const Body({state}) : _state = state;
   final CustomerProfile _state;
 
@@ -57,7 +54,7 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
   }
 
   ListTile _buildTextField({title, value, onchanged}) {
-    if (_state != null) {
+    if (_state.isEditing == false) {
       return ListTile(
         title: TextFormField(
           initialValue: value,
@@ -93,13 +90,13 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Row _buildButtons(BuildContext context) {
-    if (_state != null) {
+    if (_state.isEditing == false) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
             child: Text('EDIT'),
-            onPressed: () => _editProfile(context, 1),
+            onPressed: () => _editProfile(context, _state.data.id),
           ),
           SizedBox(width: 50.0),
         ],
@@ -125,7 +122,17 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
   }
 
   void _editProfile(BuildContext context, int index) async {
-    final _editProf = CustomerProfile(isEditing: true, data: Customer());
+    final _editProf = CustomerProfile(
+        isEditing: true,
+        data: Customer(
+          id: _state.data.id,
+          username: _state.data.username,
+          fullname: _state.data.fullname,
+          email: _state.data.email,
+          ic: _state.data.ic,
+          matricNo: _state.data.matricNo,
+          phone: _state.data.phone,
+        ));
     var _update = await Navigator.push(
         context,
         CustomerProfile.route(
