@@ -6,6 +6,16 @@ class Login extends StatelessWidget {
   static Route<dynamic> route() =>
       MaterialPageRoute(builder: (context) => Login());
 
+  String _usern = '';
+  String _pass = '';
+  String get usern => this._usern;
+
+  set usern(String value) => this._usern = value;
+
+  get pass => this._pass;
+
+  set pass(value) => this._pass = value;
+
   @override
   Widget build(BuildContext context) {
     return Container(

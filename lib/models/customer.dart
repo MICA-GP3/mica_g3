@@ -49,4 +49,36 @@ class Customer {
         _phone = phone,
         _email = email,
         _password = password;
+
+  Customer.copy(Customer from)
+      : this(
+            id: from.id,
+            username: from.username,
+            fullname: from.fullname,
+            ic: from.ic,
+            matricNo: from.matricNo,
+            phone: from.phone,
+            email: from.email,
+            password: from.password);
+
+  Customer.fromJson(Map<String, dynamic> json)
+      : _id = json['id'],
+        _username = json['username'],
+        _fullname = json['fullname'],
+        _ic = json['ic'],
+        _matricNo = json['matricNo'],
+        _phone = json['phone'],
+        _email = json['email'],
+        _password = json['password'];
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'username': username,
+        'fullname': fullname,
+        'ic': ic,
+        'matricNo': matricNo,
+        'phone': phone,
+        'email': email,
+        'password': password
+      };
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/models/customer.dart';
+import 'package:hasta_rental/services/customer_service.dart';
 
 import 'login.dart';
 
@@ -25,8 +27,14 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
         thickness: 1,
         color: Colors.black38,
       ),
-      _buildTextField(title: 'Username', value: '', onchanged: (value) {}),
-      _buildTextField(title: 'Password', value: '', onchanged: (value) {}),
+      _buildTextField(
+          title: 'Username',
+          value: '',
+          onchanged: (value) => _state.usern = value),
+      _buildTextField(
+          title: 'Password',
+          value: '',
+          onchanged: (value) => _state.pass = value),
       _buildButtons(context),
     ]);
   }
@@ -53,7 +61,7 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
       children: [
         ElevatedButton(
           child: Text('Login'),
-          onPressed: () {},
+          onPressed: () => _onLog(context),
         ),
         SizedBox(width: 10.0),
         ElevatedButton(
@@ -64,5 +72,20 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
         ),
       ],
     );
+  }
+
+  void _onLog(context) async {
+    if (_state.usern == '' || _state.pass == '') {
+    } else {
+      final _user = await CustomerService.getUserByLoginAndPassword(
+          login: _state.usern, password: _state.pass);
+      if (_user != null) {
+        var _showU = Customer.copy(_user);
+        Navigator.pop(
+            context,
+            Customer(
+                id: _showU.id, username: _showU.username, email: _showU.email));
+      }
+    }
   }
 }
