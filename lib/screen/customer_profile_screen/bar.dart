@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screen/customer_profile_screen/edit_profile.dart';
 
-class Bar extends StatefulWidget implements PreferredSizeWidget {
+class Bar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(50.0);
 
-  @override
-  _barstate createState() => _barstate();
-}
+  const Bar({state}) : _state = state;
+  final EditProfile _state;
 
-class _barstate extends State<Bar> {
   @override
   Widget build(BuildContext context) {
     return Container(

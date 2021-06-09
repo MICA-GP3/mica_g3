@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/models/customer.dart';
 import 'package:hasta_rental/screen/customer_profile_screen/customer_profile.dart';
+import 'package:hasta_rental/screen/customer_profile_screen/edit_profile.dart';
 
 class Body extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -38,37 +40,81 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
   }
 
   ListTile _buildTextField({title, value, onchanged}) {
-    return ListTile(
-      title: TextFormField(
-        initialValue: value,
-        decoration: InputDecoration(
-            labelText: title,
-            hintText: title,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(color: Colors.amber))),
-        onChanged: onchanged,
-      ),
-    );
+    if (_state != null) {
+      return ListTile(
+        title: TextFormField(
+          initialValue: value,
+          decoration: InputDecoration(
+              labelText: title,
+              hintText: title,
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  borderSide: BorderSide(color: Colors.amber))),
+          onChanged: onchanged,
+          enabled: false,
+        ),
+      );
+    } else {
+      return ListTile(
+        title: TextFormField(
+          initialValue: value,
+          decoration: InputDecoration(
+              labelText: title,
+              hintText: title,
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  borderSide: BorderSide(color: Colors.amber))),
+          onChanged: onchanged,
+          enabled: true,
+        ),
+      );
+    }
   }
 
   Row _buildButtons(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          child: Text('Ok'),
-          onPressed: () {},
-        ),
-        SizedBox(width: 10.0),
-        ElevatedButton(
-          child: Text('Cancel'),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ],
-    );
+    if (_state != null) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            child: Text('EDIT'),
+            onPressed: () => _editProfile(context, 1),
+          ),
+          SizedBox(width: 50.0),
+        ],
+      );
+    } else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            child: Text('Ok'),
+            onPressed: () {},
+          ),
+          SizedBox(width: 10.0),
+          ElevatedButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      );
+    }
+  }
+
+  void _editProfile(BuildContext context, int index) async {
+    final _editProf = EditProfile(isEditing: true, data: Customer());
+    var _update = await Navigator.push(
+        context,
+        EditProfile.route(
+          isEditing: true,
+          data: _editProf.data,
+        ));
+    if (_update != null) {}
   }
 }
