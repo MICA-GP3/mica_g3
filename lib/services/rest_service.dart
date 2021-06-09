@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class Rest {
   //? Change the baseUrl according to your PC's IP address. Remain the port as 3000
   static const String _baseUrl =
-      'https://my-json-server.typicode.com/isaactan98/test_api';
+      'https://my-json-server.typicode.com/isaactan98/test_hasta';
   //'http://192.168.0.112:3000';
 
   // Send a GET request to retrieve data from a REST server

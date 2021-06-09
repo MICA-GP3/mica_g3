@@ -9,7 +9,7 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(50.0);
 
   const Body({state}) : _state = state;
-  final Login _state;
+  final LoginState _state;
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +28,20 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
         color: Colors.black38,
       ),
       _buildTextField(
-          title: 'Username',
-          value: '',
-          onchanged: (value) => _state.usern = value),
+          title: 'Username', onchanged: (value) => _state.usern = value),
       _buildTextField(
-          title: 'Password',
-          value: '',
-          onchanged: (value) => _state.pass = value),
+          title: 'Password', onchanged: (value) => _state.pass = value),
+      Text(
+        '${_state.errorM}',
+        style: TextStyle(color: Colors.red, fontSize: 20.0),
+      ),
       _buildButtons(context),
     ]);
   }
 
-  ListTile _buildTextField({title, value, onchanged}) {
+  ListTile _buildTextField({title, onchanged}) {
     return ListTile(
       title: TextFormField(
-        initialValue: value,
         decoration: InputDecoration(
             labelText: title,
             hintText: title,
@@ -76,6 +75,7 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
 
   void _onLog(context) async {
     if (_state.usern == '' || _state.pass == '') {
+      _state.errorM = "EMPTY FIELD";
     } else {
       final _user = await CustomerService.getUserByLoginAndPassword(
           login: _state.usern, password: _state.pass);
@@ -85,6 +85,8 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
             context,
             Customer(
                 id: _showU.id, username: _showU.username, email: _showU.email));
+      } else {
+        _state.errorM = "Invalid Username or Password";
       }
     }
   }

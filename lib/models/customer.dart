@@ -4,7 +4,7 @@ class Customer {
   String _fullname;
   String _ic;
   String _matricNo;
-  int _phone;
+  String _phone;
   String _email;
   String _password;
 
@@ -38,7 +38,7 @@ class Customer {
     String fullname,
     String ic,
     String matricNo,
-    int phone,
+    String phone,
     String email,
     String password,
   })  : _id = id,

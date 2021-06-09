@@ -2,19 +2,33 @@ import 'package:flutter/material.dart';
 import 'body.dart';
 import 'bar.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   static Route<dynamic> route() =>
       MaterialPageRoute(builder: (context) => Login());
 
+  @override
+  LoginState createState() => LoginState();
+}
+
+class LoginState extends State<Login> {
   String _usern = '';
   String _pass = '';
-  String get usern => this._usern;
+  String _errorM = '';
 
-  set usern(String value) => this._usern = value;
+  get usern => _usern;
+  set usern(value) => setState(() {
+        _usern = value;
+      });
 
-  get pass => this._pass;
+  get pass => _pass;
+  set pass(value) => setState(() {
+        _pass = value;
+      });
 
-  set pass(value) => this._pass = value;
+  get errorM => _errorM;
+  set errorM(value) => setState(() {
+        _errorM = value;
+      });
 
   @override
   Widget build(BuildContext context) {
