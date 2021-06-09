@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/models/customer.dart';
 import 'package:hasta_rental/screen/customer_profile_screen/customer_profile.dart';
-import 'package:hasta_rental/screen/customer_profile_screen/edit_profile.dart';
 
 class Body extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -26,12 +25,30 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
         thickness: 1,
         color: Colors.black38,
       ),
-      _buildTextField(title: 'Username', value: '', onchanged: (value) {}),
-      _buildTextField(title: 'Full Name', value: '', onchanged: (value) {}),
-      _buildTextField(title: 'IC/Passport', value: '', onchanged: (value) {}),
-      _buildTextField(title: 'Matric No', value: '', onchanged: (value) {}),
-      _buildTextField(title: 'Phone', value: '', onchanged: (value) {}),
-      _buildTextField(title: 'Email', value: '', onchanged: (value) {}),
+      _buildTextField(
+          title: 'Username',
+          value: _state.data.username,
+          onchanged: (value) => _state.data.username = value),
+      _buildTextField(
+          title: 'Full Name',
+          value: _state.data.fullname,
+          onchanged: (value) => _state.data.fullname = value),
+      _buildTextField(
+          title: 'IC/Passport',
+          value: _state.data.ic,
+          onchanged: (value) => _state.data.ic = value),
+      _buildTextField(
+          title: 'Matric No',
+          value: _state.data.matricNo,
+          onchanged: (value) => _state.data.matricNo = value),
+      _buildTextField(
+          title: 'Phone',
+          value: _state.data.phone,
+          onchanged: (value) => _state.data.phone = value),
+      _buildTextField(
+          title: 'Email',
+          value: _state.data.email,
+          onchanged: (value) => _state.data.email = value),
       _buildTextField(title: 'Password', value: '', onchanged: (value) {}),
       _buildTextField(
           title: 'Confrim Password', value: '', onchanged: (value) {}),
@@ -108,10 +125,10 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
   }
 
   void _editProfile(BuildContext context, int index) async {
-    final _editProf = EditProfile(isEditing: true, data: Customer());
+    final _editProf = CustomerProfile(isEditing: true, data: Customer());
     var _update = await Navigator.push(
         context,
-        EditProfile.route(
+        CustomerProfile.route(
           isEditing: true,
           data: _editProf.data,
         ));

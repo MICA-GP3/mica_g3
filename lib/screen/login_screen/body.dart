@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/models/customer.dart';
+import 'package:hasta_rental/screen/customer_profile_screen/customer_profile.dart';
 import 'package:hasta_rental/services/customer_service.dart';
 
 import 'login.dart';
@@ -81,10 +82,12 @@ class Body extends StatelessWidget implements PreferredSizeWidget {
           login: _state.usern, password: _state.pass);
       if (_user != null) {
         var _showU = Customer.copy(_user);
-        Navigator.pop(
-            context,
-            Customer(
-                id: _showU.id, username: _showU.username, email: _showU.email));
+        // Navigator.pop(
+        //     context,
+        //     Customer(
+        //         id: _showU.id, username: _showU.username, email: _showU.email));
+        Navigator.push(
+            context, CustomerProfile.route(isEditing: false, data: _showU));
       } else {
         _state.errorM = "Invalid Username or Password";
       }
