@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "915107011259",
+    "firebase_url": "https://mobileproject-8913f-default-rtdb.firebaseio.com",
+    "project_id": "mobileproject-8913f",
+    "storage_bucket": "mobileproject-8913f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915107011259:android:b7a4309357f3baa4fe679e",
+        "android_client_info": {
+          "package_name": "com.example.hasta_rental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915107011259-ildn7hqr2vm5ee3vbimvkppa78aoiust.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIPIFEw8Bz-ZMUgpadQAyjbqTPCYg1HKM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915107011259-ildn7hqr2vm5ee3vbimvkppa78aoiust.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
