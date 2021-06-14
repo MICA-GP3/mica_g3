@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'body.dart';
-import 'bar.dart';
+import 'package:hasta_rental/models/customer.dart';
 
-class Login extends StatefulWidget {
+import 'signup_vm.dart';
+
+class SignUp extends StatefulWidget {
   static Route<dynamic> route() =>
-      MaterialPageRoute(builder: (context) => Login());
+      MaterialPageRoute(builder: (context) => SignUp());
 
   @override
-  LoginState createState() => LoginState();
+  SignUpState createState() => SignUpState();
 }
 
-class LoginState extends State<Login> {
+class SignUpState extends State<SignUp> {
   String _usern = '';
   String _pass = '';
+  String _ic = '';
+  String _matricNo = '';
+  String _phone = '';
+  String _email = '';
   String _errorM = '';
 
   get usern => _usern;
@@ -23,6 +28,26 @@ class LoginState extends State<Login> {
   get pass => _pass;
   set pass(value) => setState(() {
         _pass = value;
+      });
+
+  get ic => _usern;
+  set ic(value) => setState(() {
+        _usern = value;
+      });
+
+  get matricNo => _pass;
+  set matricNo(value) => setState(() {
+        _pass = value;
+      });
+
+  get phone => _pass;
+  set phone(value) => setState(() {
+        _pass = value;
+      });
+
+  get email => _usern;
+  set email(value) => setState(() {
+        _usern = value;
       });
 
   get errorM => _errorM;

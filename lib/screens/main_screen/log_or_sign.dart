@@ -11,7 +11,6 @@ class LogOrSign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Bar(),
       body: Container(
         child: ListView(
           children: [

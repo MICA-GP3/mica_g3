@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'body.dart';
-import 'bar.dart';
 
-class SignUp extends StatefulWidget {
+class Login extends StatefulWidget {
   static Route<dynamic> route() =>
-      MaterialPageRoute(builder: (context) => SignUp());
+      MaterialPageRoute(builder: (context) => Login());
 
   @override
-  SignUpState createState() => SignUpState();
+  LoginState createState() => LoginState();
 }
 
-class SignUpState extends State<SignUp> {
+class LoginState extends State<Login> {
   String _usern = '';
   String _pass = '';
-  String _ic = '';
-  String _matricNo = '';
-  String _phone = '';
-  String _email = '';
   String _errorM = '';
 
   get usern => _usern;
@@ -29,26 +24,6 @@ class SignUpState extends State<SignUp> {
         _pass = value;
       });
 
-  get ic => _usern;
-  set ic(value) => setState(() {
-        _usern = value;
-      });
-
-  get matricNo => _pass;
-  set matricNo(value) => setState(() {
-        _pass = value;
-      });
-
-  get phone => _pass;
-  set phone(value) => setState(() {
-        _pass = value;
-      });
-
-  get email => _usern;
-  set email(value) => setState(() {
-        _usern = value;
-      });
-
   get errorM => _errorM;
   set errorM(value) => setState(() {
         _errorM = value;
@@ -58,7 +33,6 @@ class SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        appBar: Bar(),
         body: Body(
           state: this,
         ),

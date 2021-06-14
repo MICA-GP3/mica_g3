@@ -1,60 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/models/customer.dart';
-import 'package:hasta_rental/screen/customer_profile_screen/customer_profile.dart';
 
-class Body extends StatelessWidget {
-  const Body({state}) : _state = state;
-  final CustomerProfile _state;
+import 'customer_profile_vm.dart';
+
+class CustomerProfile extends StatelessWidget {
+  static Route route({isEditing = true, data}) => MaterialPageRoute(
+      builder: (context) => CustomerProfile(isEditing: isEditing, data: data));
+
+  final bool _isEditing;
+  final Customer _data;
+
+  get isEditing => _isEditing;
+  get data => _data;
+
+  CustomerProfile({isEditing, data})
+      : _isEditing = isEditing,
+        _data = data;
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      Padding(
-        padding: EdgeInsets.all(10),
-        child: Center(
-          child: Text(
-            'My Profile',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+    return Container(
+      child: Scaffold(
+        body: ListView(children: [
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Center(
+              child: Text(
+                'My Profile',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Divider(
+            thickness: 1,
+            color: Colors.black38,
+          ),
+          _buildTextField(title: 'Username', value: '', onchanged: (value) {}),
+          _buildButtons(context),
+        ]),
+        endDrawer: Drawer(
+          child: ListView(
+            children: <Widget>[DrawerHeader(child: Text('Header'))],
           ),
         ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today),
+              label: 'Calendar',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notifications),
+              label: 'Notification',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
-      Divider(
-        thickness: 1,
-        color: Colors.black38,
-      ),
-      _buildTextField(
-          title: 'Username',
-          value: _state.data.username,
-          onchanged: (value) => _state.data.username = value),
-      _buildTextField(
-          title: 'Full Name',
-          value: _state.data.fullname,
-          onchanged: (value) => _state.data.fullname = value),
-      _buildTextField(
-          title: 'IC/Passport',
-          value: _state.data.ic,
-          onchanged: (value) => _state.data.ic = value),
-      _buildTextField(
-          title: 'Matric No',
-          value: _state.data.matricNo,
-          onchanged: (value) => _state.data.matricNo = value),
-      _buildTextField(
-          title: 'Phone',
-          value: _state.data.phone,
-          onchanged: (value) => _state.data.phone = value),
-      _buildTextField(
-          title: 'Email',
-          value: _state.data.email,
-          onchanged: (value) => _state.data.email = value),
-      _buildTextField(title: 'Password', value: '', onchanged: (value) {}),
-      _buildTextField(
-          title: 'Confrim Password', value: '', onchanged: (value) {}),
-      _buildButtons(context),
-    ]);
+    );
   }
 
   ListTile _buildTextField({title, value, onchanged}) {
-    if (_state.isEditing == false) {
+    if (null) {
       return ListTile(
         title: TextFormField(
           initialValue: value,
@@ -90,13 +105,13 @@ class Body extends StatelessWidget {
   }
 
   Row _buildButtons(BuildContext context) {
-    if (_state.isEditing == false) {
+    if (null) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
             child: Text('EDIT'),
-            onPressed: () => _editProfile(context, _state.data.id),
+            onPressed: () => _editProfile(context, null),
           ),
           SizedBox(width: 50.0),
         ],
@@ -122,17 +137,7 @@ class Body extends StatelessWidget {
   }
 
   void _editProfile(BuildContext context, int index) async {
-    final _editProf = CustomerProfile(
-        isEditing: true,
-        data: Customer(
-          id: _state.data.id,
-          username: _state.data.username,
-          fullname: _state.data.fullname,
-          email: _state.data.email,
-          ic: _state.data.ic,
-          matricNo: _state.data.matricNo,
-          phone: _state.data.phone,
-        ));
+    final _editProf = CustomerProfile(isEditing: true, data: Customer());
     var _update = await Navigator.push(
         context,
         CustomerProfile.route(
