@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hasta_rental/screen/customer_profile_screen/customer_profile.dart';
-import 'package:hasta_rental/screen/main_screen/log_or_sign.dart';
+import 'package:hasta_rental/screens/customer_profile_screen/customer_profile.dart';
+import 'package:hasta_rental/screens/main_screen/log_or_sign.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 import 'body.dart';
 

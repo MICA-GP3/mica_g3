@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hasta_rental/models/customer.dart';
-
-import 'signup_vm.dart';
 
 class SignUp extends StatefulWidget {
   static Route<dynamic> route() =>
@@ -59,10 +56,8 @@ class SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        appBar: Bar(),
-        body: Body(
-          state: this,
-        ),
+        //appBar: Bar(),
+        body: Container(),
         endDrawer: Drawer(
           child: ListView(
             children: <Widget>[DrawerHeader(child: Text('Header'))],

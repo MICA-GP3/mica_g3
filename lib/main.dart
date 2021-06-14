@@ -5,7 +5,7 @@
 //HASTA CAR RENTAL
 
 import 'package:flutter/material.dart';
-import 'package:hasta_rental/screen/main_screen/mainpage.dart';
+import 'package:hasta_rental/screens/main_screen/mainpage.dart';
 
 void main() => runApp(MaterialApp(
       title: 'Hasta Car Rental',

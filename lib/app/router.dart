@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hasta_rental/screen/customer_profile_screen/customer_profile.dart';
 
 const String homeRoute = '/login';
 const String loginRoute = '/login';
@@ -11,7 +10,6 @@ Route<dynamic> createRoute(settings) {
     case homeRoute:
     case loginRoute:
     case signupRoute:
-      return CustomerProfile.route();
   }
   return null;
 }

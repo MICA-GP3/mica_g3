@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hasta_rental/screen/login_screen/login.dart';
-
-import 'bar.dart';
+import 'package:hasta_rental/screens/login_screen/login.dart';
 
 class LogOrSign extends StatelessWidget {
   static Route<dynamic> route() =>
