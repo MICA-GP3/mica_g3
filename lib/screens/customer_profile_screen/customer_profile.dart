@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/models/customer.dart';
 
-import 'customer_profile_vm.dart';
-
 class CustomerProfile extends StatelessWidget {
   static Route route({isEditing = true, data}) => MaterialPageRoute(
       builder: (context) => CustomerProfile(isEditing: isEditing, data: data));
@@ -69,81 +67,38 @@ class CustomerProfile extends StatelessWidget {
   }
 
   ListTile _buildTextField({title, value, onchanged}) {
-    if (null) {
-      return ListTile(
-        title: TextFormField(
-          initialValue: value,
-          decoration: InputDecoration(
-              labelText: title,
-              hintText: title,
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide(color: Colors.amber))),
-          onChanged: onchanged,
-          enabled: false,
-        ),
-      );
-    } else {
-      return ListTile(
-        title: TextFormField(
-          initialValue: value,
-          decoration: InputDecoration(
-              labelText: title,
-              hintText: title,
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide(color: Colors.amber))),
-          onChanged: onchanged,
-          enabled: true,
-        ),
-      );
-    }
+    return ListTile(
+      title: TextFormField(
+        initialValue: value,
+        decoration: InputDecoration(
+            labelText: title,
+            hintText: title,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Colors.amber))),
+        onChanged: onchanged,
+        enabled: true,
+      ),
+    );
   }
 
   Row _buildButtons(BuildContext context) {
-    if (null) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-            child: Text('EDIT'),
-            onPressed: () => _editProfile(context, null),
-          ),
-          SizedBox(width: 50.0),
-        ],
-      );
-    } else {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-            child: Text('Ok'),
-            onPressed: () {},
-          ),
-          SizedBox(width: 10.0),
-          ElevatedButton(
-            child: Text('Cancel'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      );
-    }
-  }
-
-  void _editProfile(BuildContext context, int index) async {
-    final _editProf = CustomerProfile(isEditing: true, data: Customer());
-    var _update = await Navigator.push(
-        context,
-        CustomerProfile.route(
-          isEditing: true,
-          data: _editProf.data,
-        ));
-    if (_update != null) {}
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          child: Text('Ok'),
+          onPressed: () {},
+        ),
+        SizedBox(width: 10.0),
+        ElevatedButton(
+          child: Text('Cancel'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
   }
 }

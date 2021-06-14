@@ -1,29 +1,84 @@
-import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'rest_service.dart';
-import '../models/customer.dart';
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+final CollectionReference _mainCollection = _firestore.collection('rental');
 
-class CustomerService {
-  static Future<Customer> getUserByLoginAndPassword(
-      {String login, String password}) async {
-    final logins = await Rest.get('users?username=$login&password=$password');
-    //not finish
-    var show = logins.map((json) => Customer.fromJson(json)).toList();
-    //print(show[0].id);
-    //print('show N= ${show[0].name}');
+class CustomerServ {
+  static String? username;
+  static String? password;
 
-    if (show.length != 0) {
-      return Customer(
-          id: show[0].id,
-          username: show[0].username,
-          fullname: show[0].fullname,
-          ic: show[0].ic,
-          matricNo: show[0].matricNo,
-          phone: show[0].phone,
-          email: show[0].email,
-          password: show[0].password); //
-    } else {
-      return null;
-    }
+  static Future<void> addItem(
+      {required String username,
+      required String fullname,
+      required String ic,
+      required String matricNo,
+      required String phone,
+      required String email,
+      required String password}) async {
+    DocumentReference documentReferencer =
+        _mainCollection.doc(username).collection('customer').doc();
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "username": username,
+      "fullname": fullname,
+      "ic": ic,
+      "matricNo": matricNo,
+      "phone": phone,
+      "email": email,
+      "password": password,
+    };
+
+    await documentReferencer
+        .set(data)
+        .whenComplete(() => print("Note item added to the database"))
+        .catchError((e) => print(e));
+  }
+
+  static Future<void> updateItem({
+    required String username,
+    required String fullname,
+    required String ic,
+    required String matricNo,
+    required String phone,
+    required String email,
+    required String password,
+    required String docId,
+  }) async {
+    DocumentReference documentReferencer =
+        _mainCollection.doc(username).collection('customer').doc(docId);
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "username": username,
+      "fullname": fullname,
+      "ic": ic,
+      "matricNo": matricNo,
+      "phone": phone,
+      "email": email,
+      "password": password,
+    };
+
+    await documentReferencer
+        .update(data)
+        .whenComplete(() => print("Note item updated in the database"))
+        .catchError((e) => print(e));
+  }
+
+  static Stream<QuerySnapshot> readItems() {
+    CollectionReference customerCollections =
+        _mainCollection.doc(username).collection('customer');
+
+    return customerCollections.snapshots();
+  }
+
+  static Future<void> deleteItem({
+    required String docId,
+  }) async {
+    DocumentReference documentReferencer =
+        _mainCollection.doc(username).collection('customer').doc(docId);
+
+    await documentReferencer
+        .delete()
+        .whenComplete(() => print('Note item deleted from the database'))
+        .catchError((e) => print(e));
   }
 }

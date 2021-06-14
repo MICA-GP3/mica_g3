@@ -94,7 +94,7 @@ class _MainPage extends State<MainPage> {
         }
         break;
       default:
-        return null;
+        return Navigator.pushNamed(context, '');
     }
   }
 }

@@ -5,7 +5,9 @@ import 'customer_profile.dart';
 
 class CustomerVM extends CustomerProfile {
   void _editProfile(BuildContext context, int index) async {
-    final _editProf = CustomerProfile(isEditing: true, data: Customer());
+    final _editProf = CustomerProfile(
+      isEditing: true,
+    );
     var _update = await Navigator.push(
         context,
         CustomerProfile.route(
