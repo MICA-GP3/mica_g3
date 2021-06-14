@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:hasta_rental/models/customer.dart';
 
 class CustomerProfile extends StatelessWidget {
-  static Route route({isEditing = true, data}) => MaterialPageRoute(
-      builder: (context) => CustomerProfile(isEditing: isEditing, data: data));
+  // static Route route({isEditing = true, data}) => MaterialPageRoute(
+  //     builder: (context) => CustomerProfile(isEditing: isEditing, data: data));
 
-  final bool _isEditing;
-  final Customer _data;
+  // final bool _isEditing;
+  // final Customer _data;
 
-  get isEditing => _isEditing;
-  get data => _data;
+  // get isEditing => _isEditing;
+  // get data => _data;
 
-  CustomerProfile({isEditing, data})
-      : _isEditing = isEditing,
-        _data = data;
+  // CustomerProfile({isEditing, data})
+  //     : _isEditing = isEditing,
+  //       _data = data;
 
   @override
   Widget build(BuildContext context) {

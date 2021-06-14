@@ -23,7 +23,7 @@ class _MainPage extends State<MainPage> {
               DrawerHeader(child: Text('Header')),
               ListTile(
                 title: Text('Profile'),
-                onTap: () => Navigator.push(context, CustomerProfile.route()),
+                onTap: () => {},
               ),
               Expanded(
                   child: Align(
@@ -90,7 +90,8 @@ class _MainPage extends State<MainPage> {
         if (_index == 3) {
           return Navigator.push(context, LogOrSign.route());
         } else {
-          return Navigator.push(context, CustomerProfile.route());
+          return Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => CustomerProfile()));
         }
         break;
       default:

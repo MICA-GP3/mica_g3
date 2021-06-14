@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/screens/customer_profile_screen/customer_profile.dart';
 import 'package:hasta_rental/services/customer_service.dart';

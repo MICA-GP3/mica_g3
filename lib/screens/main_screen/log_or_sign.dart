@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/screens/login_screen/login.dart';
+import 'package:hasta_rental/screens/signup_screen/signup.dart';
 
 class LogOrSign extends StatelessWidget {
   static Route<dynamic> route() =>
@@ -58,7 +59,10 @@ class LogOrSign extends StatelessWidget {
             onPressed: () {
               if (value == 1) {
                 Navigator.push(context, Login.route());
-              } else {}
+              } else {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SignUp()));
+              }
             }),
         SizedBox(width: 0.0),
       ],

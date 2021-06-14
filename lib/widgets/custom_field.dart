@@ -60,8 +60,9 @@ class CustomFormField extends StatelessWidget {
           color: Colors.redAccent,
           fontWeight: FontWeight.bold,
         ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(25),
           borderSide: BorderSide(
             color: CustomColors.firebaseAmber,
             width: 2,

@@ -1,63 +1,70 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/signup_screen/signup_vm.dart';
 
 class SignUp extends StatefulWidget {
-  static Route<dynamic> route() =>
-      MaterialPageRoute(builder: (context) => SignUp());
-
   @override
   SignUpState createState() => SignUpState();
 }
 
 class SignUpState extends State<SignUp> {
-  String _usern = '';
-  String _pass = '';
-  String _ic = '';
-  String _matricNo = '';
-  String _phone = '';
-  String _email = '';
-  String _errorM = '';
+  Future<FirebaseApp> _initializeFirebase() async {
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    return firebaseApp;
+  }
 
-  get usern => _usern;
-  set usern(value) => setState(() {
-        _usern = value;
-      });
-
-  get pass => _pass;
-  set pass(value) => setState(() {
-        _pass = value;
-      });
-
-  get ic => _usern;
-  set ic(value) => setState(() {
-        _usern = value;
-      });
-
-  get matricNo => _pass;
-  set matricNo(value) => setState(() {
-        _pass = value;
-      });
-
-  get phone => _pass;
-  set phone(value) => setState(() {
-        _pass = value;
-      });
-
-  get email => _usern;
-  set email(value) => setState(() {
-        _usern = value;
-      });
-
-  get errorM => _errorM;
-  set errorM(value) => setState(() {
-        _errorM = value;
-      });
+  final FocusNode _usernameNode = FocusNode();
+  final FocusNode _fullnameNode = FocusNode();
+  final FocusNode _ic = FocusNode();
+  final FocusNode _matricNoNode = FocusNode();
+  final FocusNode _phoneNode = FocusNode();
+  final FocusNode _emailNode = FocusNode();
+  final FocusNode _passwordNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        _usernameNode.unfocus();
+        _fullnameNode.unfocus();
+        _ic.unfocus();
+        _matricNoNode.unfocus();
+        _phoneNode.unfocus();
+        _emailNode.unfocus();
+        _passwordNode.unfocus();
+      },
       child: Scaffold(
-        //appBar: Bar(),
-        body: Container(),
+        //appBar: AppBar(),
+        body: SafeArea(
+            child: Expanded(
+                child: ListView(
+          children: [
+            Padding(
+                padding: EdgeInsets.only(left: 16, right: 16),
+                child: FutureBuilder(
+                  future: _initializeFirebase(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error Initialize FIrebase');
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.done) {
+                      return SignUpVM(
+                        usernameNode: _usernameNode,
+                        fullnameNode: _fullnameNode,
+                        ic: _ic,
+                        matricNoNode: _matricNoNode,
+                        phoneNode: _phoneNode,
+                        emailNode: _emailNode,
+                        passwordNode: _passwordNode,
+                      );
+                    }
+                    return CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+                    );
+                  },
+                )),
+          ],
+        ))),
         endDrawer: Drawer(
           child: ListView(
             children: <Widget>[DrawerHeader(child: Text('Header'))],
