@@ -68,6 +68,7 @@ class SignUpState extends State<SignUpVM> {
                       inputAction: TextInputAction.next,
                       label: 'Username',
                       hint: 'Enter Username',
+                      enabled: true,
                       validator: (value) =>
                           Validator.validateField(value: value)),
                   CustomFormField(
@@ -77,24 +78,27 @@ class SignUpState extends State<SignUpVM> {
                       inputAction: TextInputAction.next,
                       label: 'Full Name',
                       hint: 'Enter Your Full Name',
+                      enabled: true,
                       validator: (value) =>
                           Validator.validateField(value: value)),
                   CustomFormField(
                       controller: _ic,
                       focusNode: widget.ic,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                       inputAction: TextInputAction.next,
                       label: 'IC',
                       hint: 'Enter Your IC',
+                      enabled: true,
                       validator: (value) =>
                           Validator.validateField(value: value)),
                   CustomFormField(
                       controller: _phone,
                       focusNode: widget.phoneNode,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                       inputAction: TextInputAction.next,
                       label: 'Phone No',
                       hint: 'Enter Your Phone Number',
+                      enabled: true,
                       validator: (value) =>
                           Validator.validateField(value: value)),
                   CustomFormField(
@@ -104,15 +108,17 @@ class SignUpState extends State<SignUpVM> {
                       inputAction: TextInputAction.next,
                       label: 'Matric Number',
                       hint: 'Enter Your Matric Number',
+                      enabled: true,
                       validator: (value) =>
                           Validator.validateField(value: value)),
                   CustomFormField(
                       controller: _email,
                       focusNode: widget.emailNode,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.emailAddress,
                       inputAction: TextInputAction.next,
                       label: 'Email',
                       hint: 'Enter Your Email',
+                      enabled: true,
                       validator: (value) =>
                           Validator.validateField(value: value)),
                   CustomFormField(
@@ -122,6 +128,7 @@ class SignUpState extends State<SignUpVM> {
                       inputAction: TextInputAction.next,
                       label: 'Password',
                       hint: 'Enter Your Password',
+                      enabled: true,
                       validator: (value) =>
                           Validator.validateField(value: value)),
                 ],

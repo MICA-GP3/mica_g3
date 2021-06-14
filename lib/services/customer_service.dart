@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-final CollectionReference _mainCollection = _firestore.collection('rental');
+final CollectionReference _mainCollection = _firestore.collection('customer');
 
 class CustomerServ {
   static String? username;
@@ -16,7 +16,7 @@ class CustomerServ {
       required String email,
       required String password}) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc(username).collection('customer').doc();
+        _mainCollection.doc(username).collection('details').doc();
 
     Map<String, dynamic> data = <String, dynamic>{
       "username": username,
@@ -45,7 +45,7 @@ class CustomerServ {
     required String docId,
   }) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc(username).collection('customer').doc(docId);
+        _mainCollection.doc(username).collection('details').doc(docId);
 
     Map<String, dynamic> data = <String, dynamic>{
       "username": username,
@@ -65,7 +65,7 @@ class CustomerServ {
 
   static Stream<QuerySnapshot> readItems() {
     CollectionReference customerCollections =
-        _mainCollection.doc(username).collection('customer');
+        _mainCollection.doc(username).collection('details');
 
     return customerCollections.snapshots();
   }
@@ -74,7 +74,7 @@ class CustomerServ {
     required String docId,
   }) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc(username).collection('customer').doc(docId);
+        _mainCollection.doc(username).collection('details').doc(docId);
 
     await documentReferencer
         .delete()

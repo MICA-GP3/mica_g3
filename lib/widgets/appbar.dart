@@ -7,10 +7,10 @@ class Bar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(50.0);
 
   @override
-  _barstate createState() => _barstate();
+  _Barstate createState() => _Barstate();
 }
 
-class _barstate extends State<Bar> {
+class _Barstate extends State<Bar> {
   @override
   Widget build(BuildContext context) {
     return Container(

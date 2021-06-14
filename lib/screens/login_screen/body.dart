@@ -35,6 +35,7 @@ class BodyState extends State<Body> {
             keyboardType: TextInputType.text,
             inputAction: TextInputAction.done,
             validator: (value) => Validator.validateUserID(uid: value),
+            enabled: true,
             hint: 'Username',
             label: 'Enter Username',
           ),
