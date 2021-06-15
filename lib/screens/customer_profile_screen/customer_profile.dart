@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/screens/customer_profile_screen/edit_customer.dart';
+import 'package:hasta_rental/screens/main_screen/mainpage.dart';
 import 'package:hasta_rental/services/customer_service.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 import 'package:hasta_rental/widgets/text_field.dart';
@@ -10,6 +11,21 @@ class CustomerProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<dynamic> _changeRoute() {
+      switch (_index) {
+        case 0:
+          return Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainPage()));
+        default:
+          return Navigator.pushNamed(context, '');
+      }
+    }
+
+    void _onTap(ind) {
+      _index = ind;
+      _changeRoute();
+    }
+
     return Scaffold(
       appBar: Bar(),
       body: StreamBuilder<QuerySnapshot>(
@@ -103,6 +119,7 @@ class CustomerProfile extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _index,
         type: BottomNavigationBarType.fixed,
+        onTap: _onTap,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

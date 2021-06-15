@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/screens/customer_profile_screen/customer_profile.dart';
 import 'package:hasta_rental/screens/main_screen/log_or_sign.dart';
+import 'package:hasta_rental/services/customer_service.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 import 'body.dart';
 
@@ -73,7 +74,7 @@ class _MainPage extends State<MainPage> {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _index,
+          currentIndex: 0,
           type: BottomNavigationBarType.fixed,
           onTap: _onTap,
           items: [
@@ -109,10 +110,10 @@ class _MainPage extends State<MainPage> {
   Future<dynamic> _changeRoute() {
     switch (_index) {
       case 3:
-        if (_index == 3) {
+        if (CustomerServ.username == null) {
           return Navigator.push(context, LogOrSign.route());
         } else {
-          return Navigator.of(context).pushReplacement(
+          return Navigator.push(context,
               MaterialPageRoute(builder: (context) => CustomerProfile()));
         }
         break;
