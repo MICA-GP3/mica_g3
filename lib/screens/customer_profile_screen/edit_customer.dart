@@ -26,6 +26,8 @@ class EditCustomer extends StatefulWidget {
 }
 
 class EditState extends State<EditCustomer> {
+  int _index = 3;
+
   final FocusNode fullnameNode = FocusNode();
   final FocusNode icNode = FocusNode();
   final FocusNode matricNoNode = FocusNode();
@@ -67,6 +69,28 @@ class EditState extends State<EditCustomer> {
               passwordNode: passwordNode,
             ),
           ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _index,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today),
+              label: 'Calendar',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notifications),
+              label: 'Notification',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
         ),
       ),
     );

@@ -6,7 +6,7 @@ import 'package:hasta_rental/widgets/appbar.dart';
 import 'package:hasta_rental/widgets/text_field.dart';
 
 class CustomerProfile extends StatelessWidget {
-  int _index = 0;
+  int _index = 3;
 
   @override
   Widget build(BuildContext context) {
