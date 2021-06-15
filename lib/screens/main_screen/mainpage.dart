@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/screens/customer_profile_screen/customer_profile.dart';
 import 'package:hasta_rental/screens/main_screen/log_or_sign.dart';
@@ -12,11 +13,32 @@ class MainPage extends StatefulWidget {
 class _MainPage extends State<MainPage> {
   int _index = 0;
 
+  Future<FirebaseApp> _initialize() async {
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    return firebaseApp;
+  }
+
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
         appBar: Bar(),
-        body: Body(),
+        body: SafeArea(
+          child: FutureBuilder(
+            future: _initialize(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('Error Initializing Firebase');
+              } else if (snapshot.connectionState == ConnectionState.done) {
+                return Body();
+              }
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Colors.amber,
+                ),
+              );
+            },
+          ),
+        ),
         endDrawer: Drawer(
           child: Column(
             children: <Widget>[
