@@ -4,6 +4,7 @@ import 'package:hasta_rental/screens/customer_profile_screen/edit_customer.dart'
 import 'package:hasta_rental/screens/main_screen/mainpage.dart';
 import 'package:hasta_rental/services/customer_service.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
+import 'package:hasta_rental/widgets/endDrawer.dart';
 import 'package:hasta_rental/widgets/text_field.dart';
 
 class CustomerProfile extends StatelessWidget {
@@ -28,6 +29,7 @@ class CustomerProfile extends StatelessWidget {
 
     return Scaffold(
       appBar: Bar(),
+      endDrawer: EndDrawer(),
       body: StreamBuilder<QuerySnapshot>(
           stream: CustomerServ.readItems(),
           builder: (context, snapshot) {
