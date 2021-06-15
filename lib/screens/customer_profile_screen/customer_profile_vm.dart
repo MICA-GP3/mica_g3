@@ -6,7 +6,6 @@ import 'package:hasta_rental/widgets/custom_field.dart';
 import 'package:hasta_rental/widgets/validate.dart';
 
 class CustomerProfileVM extends StatefulWidget {
-  final FocusNode usernameNode;
   final FocusNode fullnameNode;
   final FocusNode icNode;
   final FocusNode matricNoNode;
@@ -14,7 +13,6 @@ class CustomerProfileVM extends StatefulWidget {
   final FocusNode emailNode;
   final FocusNode passwordNode;
 
-  final String username;
   final String fullname;
   final String ic;
   final String matric;
@@ -24,14 +22,12 @@ class CustomerProfileVM extends StatefulWidget {
   final String custID;
 
   const CustomerProfileVM({
-    required this.usernameNode,
     required this.fullnameNode,
     required this.icNode,
     required this.matricNoNode,
     required this.phoneNode,
     required this.emailNode,
     required this.passwordNode,
-    required this.username,
     required this.fullname,
     required this.ic,
     required this.matric,
@@ -49,7 +45,6 @@ class CustState extends State<CustomerProfileVM> {
   final _editFormkey = GlobalKey<FormState>();
   bool _isProcessing = false;
 
-  late TextEditingController _usernameController;
   late TextEditingController _fullnameController;
   late TextEditingController _icController;
   late TextEditingController _matricController;
@@ -59,7 +54,6 @@ class CustState extends State<CustomerProfileVM> {
 
   @override
   void initState() {
-    _usernameController = TextEditingController(text: widget.username);
     _fullnameController = TextEditingController(text: widget.fullname);
     _icController = TextEditingController(text: widget.ic);
     _matricController = TextEditingController(text: widget.matric);
@@ -94,19 +88,6 @@ class CustState extends State<CustomerProfileVM> {
                                 fontSize: 30, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        SizedBox(
-                          height: 24,
-                        ),
-                        CustomFormField(
-                            controller: _usernameController,
-                            focusNode: widget.usernameNode,
-                            keyboardType: TextInputType.text,
-                            inputAction: TextInputAction.next,
-                            label: 'Username',
-                            hint: 'Username',
-                            enabled: true,
-                            validator: (value) =>
-                                Validator.validateField(value: value)),
                         SizedBox(
                           height: 24,
                         ),
@@ -203,7 +184,6 @@ class CustState extends State<CustomerProfileVM> {
                               backgroundColor: MaterialStateProperty.all(
                                   CustomColors.firebaseOrange)),
                           onPressed: () async {
-                            widget.usernameNode.unfocus();
                             widget.fullnameNode.unfocus();
                             widget.icNode.unfocus();
                             widget.matricNoNode.unfocus();
@@ -217,7 +197,6 @@ class CustState extends State<CustomerProfileVM> {
                               });
 
                               await CustomerServ.updateItem(
-                                  username: _usernameController.text,
                                   fullname: _fullnameController.text,
                                   ic: _icController.text,
                                   matricNo: _matricController.text,

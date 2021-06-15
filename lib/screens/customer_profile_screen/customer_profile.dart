@@ -113,7 +113,6 @@ class CustomerProfile extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => EditCustomer(
                     custID: index,
-                    username: username,
                     fullname: fullname,
                     phone: phone,
                     ic: ic,

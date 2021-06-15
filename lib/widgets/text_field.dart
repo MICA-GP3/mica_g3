@@ -12,7 +12,7 @@ class TextFField extends StatelessWidget {
     return TextFormField(
       initialValue: value,
       decoration: InputDecoration(
-          labelText: 'Username',
+          labelText: label,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25),

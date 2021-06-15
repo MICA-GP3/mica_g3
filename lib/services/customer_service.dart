@@ -35,7 +35,6 @@ class CustomerServ {
   }
 
   static Future<void> updateItem({
-    required String username,
     required String fullname,
     required String ic,
     required String matricNo,
@@ -48,7 +47,6 @@ class CustomerServ {
         _mainCollection.doc(username).collection('details').doc(docId);
 
     Map<String, dynamic> data = <String, dynamic>{
-      "username": username,
       "fullname": fullname,
       "ic": ic,
       "matricNo": matricNo,

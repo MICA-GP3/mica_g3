@@ -3,7 +3,6 @@ import 'package:hasta_rental/screens/customer_profile_screen/customer_profile_vm
 import 'package:hasta_rental/widgets/appbar.dart';
 
 class EditCustomer extends StatefulWidget {
-  final String username;
   final String fullname;
   final String ic;
   final String matric;
@@ -13,7 +12,6 @@ class EditCustomer extends StatefulWidget {
   final String custID;
 
   EditCustomer({
-    required this.username,
     required this.fullname,
     required this.ic,
     required this.matric,
@@ -28,7 +26,6 @@ class EditCustomer extends StatefulWidget {
 }
 
 class EditState extends State<EditCustomer> {
-  final FocusNode usernameNode = FocusNode();
   final FocusNode fullnameNode = FocusNode();
   final FocusNode icNode = FocusNode();
   final FocusNode matricNoNode = FocusNode();
@@ -42,7 +39,6 @@ class EditState extends State<EditCustomer> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        usernameNode.unfocus();
         fullnameNode.unfocus();
         icNode.unfocus();
         matricNoNode.unfocus();
@@ -57,8 +53,6 @@ class EditState extends State<EditCustomer> {
             padding: EdgeInsets.only(left: 16, right: 16, bottom: 20),
             child: CustomerProfileVM(
               custID: widget.custID,
-              username: widget.username,
-              usernameNode: usernameNode,
               fullname: widget.fullname,
               fullnameNode: fullnameNode,
               ic: widget.ic,
