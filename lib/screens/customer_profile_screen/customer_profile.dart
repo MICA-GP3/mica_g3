@@ -35,6 +35,13 @@ class CustomerProfile extends StatelessWidget {
 
                     return Column(
                       children: [
+                        Center(
+                          child: Text(
+                            'Profile',
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
+                        ),
                         ListTile(
                             title: TextFField(
                           value: username,
@@ -77,14 +84,49 @@ class CustomerProfile extends StatelessWidget {
                           enable: false,
                           label: 'Password',
                         )),
+                        Center(
+                          child: _buildButtons(context, cusID, username,
+                              fullname, phone, matric, ic, email, password),
+                        ),
                       ],
                     );
                   });
             }
             return Center(
-              child: Text('${snapshot.hasData}'),
+              child: CircularProgressIndicator(
+                color: Colors.amber,
+              ),
             );
           }),
+    );
+  }
+
+  Row _buildButtons(BuildContext context, index, username, fullname, phone,
+      matric, ic, email, password) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+            child: Text('EDIT'),
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditCustomer(
+                    custID: index,
+                    username: username,
+                    fullname: fullname,
+                    phone: phone,
+                    ic: ic,
+                    matric: matric,
+                    email: email,
+                    password: password,
+                  ),
+                ))),
+        SizedBox(
+          width: 0.0,
+          height: 20,
+        ),
+      ],
     );
   }
 }
