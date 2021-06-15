@@ -48,8 +48,10 @@ class BodyState extends State<Body> {
                   widget.focusNode.unfocus();
                   if (_loginInFormKey.currentState!.validate()) {
                     CustomerServ.username = _uidController.text;
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => CustomerProfile()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CustomerProfile()));
                   }
                 },
                 child: Padding(

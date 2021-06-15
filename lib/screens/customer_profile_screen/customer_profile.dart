@@ -81,8 +81,8 @@ class CustomerProfile extends StatelessWidget {
                     );
                   });
             }
-            return CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+            return Center(
+              child: Text('${snapshot.hasData}'),
             );
           }),
     );

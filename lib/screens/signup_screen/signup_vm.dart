@@ -171,6 +171,7 @@ class SignUpState extends State<SignUpVM> {
                           setState(() {
                             _isProcessiong = false;
                           });
+                          CustomerServ.username = _username.text;
                           Navigator.push(
                               context,
                               MaterialPageRoute(
