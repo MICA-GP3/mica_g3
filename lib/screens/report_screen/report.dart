@@ -2,12 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 
-class ManageBookingPage extends StatefulWidget {
+class ReportPage extends StatefulWidget {
   @override
-  _ManageBookingPage createState() => _ManageBookingPage();
+  _ReportPage createState() => _ReportPage();
 }
 
-class _ManageBookingPage extends State<ManageBookingPage> {
+class _ReportPage extends State<ReportPage> {
   int _index = 0;
 
   Future<FirebaseApp> _initialize() async {
