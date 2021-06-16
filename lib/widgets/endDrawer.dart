@@ -21,8 +21,22 @@ class EndState extends State<EndDrawer> {
     } else {
       return Drawer(
         child: Column(
-          children: <Widget>[
-            DrawerHeader(child: Text('Quick Access')),
+          children: [
+            Container(
+              height: 100,
+              width: double.maxFinite,
+              child: Center(
+                child: DrawerHeader(
+                  child: Text(
+                    'Quick Access',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  padding: EdgeInsets.all(0),
+                  margin: EdgeInsets.all(0),
+                ),
+              ),
+              color: Colors.amber,
+            ),
             Expanded(
                 child: Align(
               alignment: Alignment.bottomCenter,
