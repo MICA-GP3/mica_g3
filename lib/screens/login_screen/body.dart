@@ -29,6 +29,9 @@ class BodyState extends State<Body> {
       key: _loginInFormKey,
       child: Column(
         children: [
+          SizedBox(
+            height: 24,
+          ),
           CustomFormField(
             controller: _uidController,
             focusNode: widget.focusNode,

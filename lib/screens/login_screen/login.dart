@@ -48,6 +48,9 @@ class LoginState extends State<Login> {
             padding: EdgeInsets.only(left: 16.0, bottom: 20.0, right: 16.0),
             child: Column(
               children: [
+                SizedBox(
+                  height: 34,
+                ),
                 Text(
                   'Log In',
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),

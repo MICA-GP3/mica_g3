@@ -8,6 +8,8 @@ import 'package:hasta_rental/widgets/endDrawer.dart';
 import 'body.dart';
 
 class MainPage extends StatefulWidget {
+  static Route<dynamic> route() =>
+      MaterialPageRoute(builder: (_) => MainPage());
   @override
   _MainPage createState() => _MainPage();
 }

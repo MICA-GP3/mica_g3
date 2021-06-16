@@ -13,6 +13,9 @@ class LogOrSign extends StatelessWidget {
       body: Container(
         child: ListView(
           children: [
+            SizedBox(
+              height: 35,
+            ),
             Row(
               children: [
                 Text(

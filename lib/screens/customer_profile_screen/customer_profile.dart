@@ -55,6 +55,9 @@ class CustomerProfile extends StatelessWidget {
 
                     return Column(
                       children: [
+                        SizedBox(
+                          height: 24,
+                        ),
                         Center(
                           child: Text(
                             'Profile',
@@ -62,48 +65,72 @@ class CustomerProfile extends StatelessWidget {
                                 fontSize: 30, fontWeight: FontWeight.bold),
                           ),
                         ),
+                        SizedBox(
+                          height: 24,
+                        ),
                         ListTile(
                             title: TextFField(
                           value: username,
                           enable: false,
                           label: 'Username',
                         )),
+                        SizedBox(
+                          height: 24,
+                        ),
                         ListTile(
                             title: TextFField(
                           value: fullname,
                           enable: false,
                           label: 'Fullname',
                         )),
+                        SizedBox(
+                          height: 24,
+                        ),
                         ListTile(
                             title: TextFField(
                           value: email,
                           enable: false,
                           label: 'Email',
                         )),
+                        SizedBox(
+                          height: 24,
+                        ),
                         ListTile(
                             title: TextFField(
                           value: phone,
                           enable: false,
                           label: 'Phone Number',
                         )),
+                        SizedBox(
+                          height: 24,
+                        ),
                         ListTile(
                             title: TextFField(
                           value: matric,
                           enable: false,
                           label: 'Matric No',
                         )),
+                        SizedBox(
+                          height: 24,
+                        ),
                         ListTile(
                             title: TextFField(
                           value: ic,
                           enable: false,
                           label: 'IC',
                         )),
+                        SizedBox(
+                          height: 24,
+                        ),
                         ListTile(
                             title: TextFField(
                           value: password,
                           enable: false,
                           label: 'Password',
                         )),
+                        SizedBox(
+                          height: 24,
+                        ),
                         Center(
                           child: _buildButtons(context, cusID, username,
                               fullname, phone, matric, ic, email, password),
