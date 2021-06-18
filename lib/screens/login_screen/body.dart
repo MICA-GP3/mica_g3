@@ -51,10 +51,11 @@ class BodyState extends State<Body> {
                   widget.focusNode.unfocus();
                   if (_loginInFormKey.currentState!.validate()) {
                     CustomerServ.username = _uidController.text;
-                    Navigator.push(
+                    Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CustomerProfile()));
+                            builder: (context) => CustomerProfile()),
+                        (route) => false);
                   }
                 },
                 child: Padding(

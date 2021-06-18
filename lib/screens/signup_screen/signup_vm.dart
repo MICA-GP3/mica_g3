@@ -172,10 +172,11 @@ class SignUpState extends State<SignUpVM> {
                             _isProcessiong = false;
                           });
                           CustomerServ.username = _username.text;
-                          Navigator.push(
+                          Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CustomerProfile()));
+                                  builder: (context) => CustomerProfile()),
+                              (route) => false);
                         }
                       },
                       child: Padding(

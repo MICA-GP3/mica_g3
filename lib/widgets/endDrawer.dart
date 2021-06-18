@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/car_list_screen/car_list.dart';
 import 'package:hasta_rental/screens/main_screen/mainpage.dart';
 import 'package:hasta_rental/services/customer_service.dart';
 
@@ -14,6 +15,9 @@ class EndState extends State<EndDrawer> {
       return Drawer(
         child: Column(
           children: <Widget>[
+            SizedBox(
+              height: 50,
+            ),
             DrawerHeader(child: Text('Please Log In or Sign Up')),
           ],
         ),
@@ -36,6 +40,11 @@ class EndState extends State<EndDrawer> {
                 ),
               ),
               color: Colors.amber,
+            ),
+            ListTile(
+              title: Text('Search Car'),
+              onTap: () => Navigator.pushAndRemoveUntil(
+                  context, CarListPage.route(), (route) => false),
             ),
             Expanded(
                 child: Align(

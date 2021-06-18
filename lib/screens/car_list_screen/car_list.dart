@@ -1,8 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/car_list_screen/car_list_vm.dart';
+import 'package:hasta_rental/services/car_service.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
+import 'package:hasta_rental/widgets/endDrawer.dart';
 
 class CarListPage extends StatefulWidget {
+  static Route<dynamic> route() =>
+      MaterialPageRoute(builder: (_) => CarListPage());
   @override
   _CarListPage createState() => _CarListPage();
 }
@@ -19,39 +25,7 @@ class _CarListPage extends State<CarListPage> {
     return Container(
       child: Scaffold(
         appBar: Bar(),
-        endDrawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              DrawerHeader(child: Text('Header')),
-              ListTile(
-                title: Text('Profile'),
-                onTap: () => {},
-              ),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.bottomCenter,
-                child: ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text("Log Out"),
-                  tileColor: Colors.amber,
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                              //title: Text("Log Out?"),
-                              content: Text("Are you sure?"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {}, child: Text("Yes")),
-                                TextButton(onPressed: () {}, child: Text("No")),
-                              ],
-                            ));
-                  },
-                ),
-              )),
-            ],
-          ),
-        ),
+        endDrawer: EndDrawer(),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _index,
           type: BottomNavigationBarType.fixed,
@@ -73,6 +47,21 @@ class _CarListPage extends State<CarListPage> {
               label: 'Profile',
             ),
           ],
+        ),
+        body: FutureBuilder(
+          future: _initialize(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text('Error Connecting');
+            } else if (snapshot.hasData) {
+              return CarVM();
+            }
+            return Center(
+              child: CircularProgressIndicator(
+                color: Colors.amber,
+              ),
+            );
+          },
         ),
       ),
     );
