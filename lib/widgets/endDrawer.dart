@@ -41,10 +41,16 @@ class EndState extends State<EndDrawer> {
               ),
               color: Colors.amber,
             ),
-            ListTile(
-              title: Text('Search Car'),
-              onTap: () => Navigator.pushAndRemoveUntil(
-                  context, CarListPage.route(), (route) => false),
+            Container(
+              decoration: BoxDecoration(color: Colors.amber[100]),
+              child: ListTile(
+                title: Text(
+                  'Search Car',
+                  //style: TextStyle(color: Colors.black38),
+                ),
+                onTap: () => Navigator.pushAndRemoveUntil(
+                    context, CarListPage.route(), (route) => false),
+              ),
             ),
             Expanded(
                 child: Align(
@@ -71,7 +77,11 @@ class EndState extends State<EndDrawer> {
                                     });
                                   },
                                   child: Text("Yes")),
-                              TextButton(onPressed: () {}, child: Text("No")),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("No")),
                             ],
                           ));
                 },

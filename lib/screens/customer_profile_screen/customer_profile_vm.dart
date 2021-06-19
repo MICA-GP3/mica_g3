@@ -69,12 +69,12 @@ class CustState extends State<CustomerProfileVM> {
     return Form(
         key: _editFormkey,
         child: Form(
-          child: Expanded(
+          child: SafeArea(
             child: ListView(
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: 8, right: 8, bottom: 24),
-                  child: Expanded(
+                  child: SafeArea(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -173,10 +173,11 @@ class CustState extends State<CustomerProfileVM> {
                 _isProcessing
                     ? Padding(
                         padding: EdgeInsets.all(16),
-                        child: CircularProgressIndicator(
-                          color: Colors.amber,
-                        ),
-                      )
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.amber,
+                          ),
+                        ))
                     : Container(
                         width: double.maxFinite,
                         child: ElevatedButton(

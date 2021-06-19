@@ -13,9 +13,9 @@ class TextFField extends StatelessWidget {
       initialValue: value,
       decoration: InputDecoration(
           labelText: label,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+          border: InputBorder.none,
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: Colors.amber))),
       enabled: false,
     );

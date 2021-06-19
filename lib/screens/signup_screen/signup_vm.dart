@@ -143,8 +143,10 @@ class SignUpState extends State<SignUpVM> {
             _isProcessiong
                 ? Padding(
                     padding: EdgeInsets.zero,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+                      ),
                     ),
                   )
                 : Container(

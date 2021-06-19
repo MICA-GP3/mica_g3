@@ -36,108 +36,154 @@ class CustomerProfile extends StatelessWidget {
             if (snapshot.hasError) {
               return Text('Something wrong with Firebase');
             } else if (snapshot.hasData || snapshot.data != null) {
-              return ListView.separated(
-                  itemCount: snapshot.data!.docs.length,
-                  separatorBuilder: (context, index) => SizedBox(
-                        height: 15,
-                      ),
-                  itemBuilder: (context, index) {
-                    var customerInfo = snapshot.data!.docs[index].data()!
-                        as Map<String, dynamic>;
-                    String cusID = snapshot.data!.docs[index].id;
-                    String username = customerInfo['username'];
-                    String fullname = customerInfo['fullname'];
-                    String email = customerInfo['email'];
-                    String phone = customerInfo['phone'];
-                    String matric = customerInfo['matricNo'];
-                    String ic = customerInfo['ic'];
-                    String password = customerInfo['password'];
+              return Container(
+                color: Colors.amber[200],
+                child: ListView.separated(
+                    itemCount: snapshot.data!.docs.length,
+                    separatorBuilder: (context, index) => SizedBox(
+                          height: 15,
+                        ),
+                    itemBuilder: (context, index) {
+                      var customerInfo = snapshot.data!.docs[index].data()!
+                          as Map<String, dynamic>;
+                      String cusID = snapshot.data!.docs[index].id;
+                      String username = customerInfo['username'];
+                      String fullname = customerInfo['fullname'];
+                      String email = customerInfo['email'];
+                      String phone = customerInfo['phone'];
+                      String matric = customerInfo['matricNo'];
+                      String ic = customerInfo['ic'];
+                      String password = customerInfo['password'];
 
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: 24,
+                      return Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 24,
+                            ),
+                            Center(
+                              child: Text(
+                                'PROFILE',
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.amber[50],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ListTile(
+                                  title: TextFField(
+                                value: username,
+                                enable: false,
+                                label: 'Username',
+                              )),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.amber[50],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ListTile(
+                                  title: TextFField(
+                                value: fullname,
+                                enable: false,
+                                label: 'Fullname',
+                              )),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.amber[50],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ListTile(
+                                  title: TextFField(
+                                value: email,
+                                enable: false,
+                                label: 'Email',
+                              )),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.amber[50],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ListTile(
+                                  title: TextFField(
+                                value: phone,
+                                enable: false,
+                                label: 'Phone Number',
+                              )),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.amber[50],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ListTile(
+                                  title: TextFField(
+                                value: matric,
+                                enable: false,
+                                label: 'Matric',
+                              )),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.amber[50],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ListTile(
+                                  title: TextFField(
+                                value: ic,
+                                enable: false,
+                                label: 'IC',
+                              )),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.amber[50],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ListTile(
+                                  title: TextFField(
+                                value: password,
+                                enable: false,
+                                label: 'Password',
+                              )),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                            Center(
+                              child: _buildButtons(context, cusID, username,
+                                  fullname, phone, matric, ic, email, password),
+                            ),
+                            SizedBox(
+                              height: 50,
+                            )
+                          ],
                         ),
-                        Center(
-                          child: Text(
-                            'Profile',
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 24,
-                        ),
-                        ListTile(
-                            title: TextFField(
-                          value: username,
-                          enable: false,
-                          label: 'Username',
-                        )),
-                        SizedBox(
-                          height: 24,
-                        ),
-                        ListTile(
-                            title: TextFField(
-                          value: fullname,
-                          enable: false,
-                          label: 'Fullname',
-                        )),
-                        SizedBox(
-                          height: 24,
-                        ),
-                        ListTile(
-                            title: TextFField(
-                          value: email,
-                          enable: false,
-                          label: 'Email',
-                        )),
-                        SizedBox(
-                          height: 24,
-                        ),
-                        ListTile(
-                            title: TextFField(
-                          value: phone,
-                          enable: false,
-                          label: 'Phone Number',
-                        )),
-                        SizedBox(
-                          height: 24,
-                        ),
-                        ListTile(
-                            title: TextFField(
-                          value: matric,
-                          enable: false,
-                          label: 'Matric No',
-                        )),
-                        SizedBox(
-                          height: 24,
-                        ),
-                        ListTile(
-                            title: TextFField(
-                          value: ic,
-                          enable: false,
-                          label: 'IC',
-                        )),
-                        SizedBox(
-                          height: 24,
-                        ),
-                        ListTile(
-                            title: TextFField(
-                          value: password,
-                          enable: false,
-                          label: 'Password',
-                        )),
-                        SizedBox(
-                          height: 24,
-                        ),
-                        Center(
-                          child: _buildButtons(context, cusID, username,
-                              fullname, phone, matric, ic, email, password),
-                        ),
-                      ],
-                    );
-                  });
+                      );
+                    }),
+              );
             }
             return Center(
               child: CircularProgressIndicator(
@@ -177,7 +223,10 @@ class CustomerProfile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-            child: Text('EDIT'),
+            child: Text(
+              'EDIT DETAILS',
+              style: TextStyle(color: Colors.white),
+            ),
             onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
