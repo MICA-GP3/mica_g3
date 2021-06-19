@@ -36,8 +36,7 @@ class SignUpState extends State<SignUp> {
       child: Scaffold(
         //appBar: AppBar(),
         body: SafeArea(
-            child: Expanded(
-                child: ListView(
+            child: ListView(
           children: [
             Padding(
                 padding: EdgeInsets.only(left: 16, right: 16),
@@ -64,7 +63,7 @@ class SignUpState extends State<SignUp> {
                   },
                 )),
           ],
-        ))),
+        )),
         endDrawer: Drawer(
           child: ListView(
             children: <Widget>[DrawerHeader(child: Text('Header'))],

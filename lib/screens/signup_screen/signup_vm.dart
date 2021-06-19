@@ -42,7 +42,7 @@ class SignUpState extends State<SignUpVM> {
   Widget build(BuildContext context) {
     return Form(
         key: _addCustomerFormKey,
-        child: Expanded(
+        child: SafeArea(
             child: Column(
           children: [
             Padding(
@@ -50,6 +50,9 @@ class SignUpState extends State<SignUpVM> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    height: 26,
+                  ),
                   Center(
                     child: Text(
                       'Sign Up',
@@ -60,6 +63,9 @@ class SignUpState extends State<SignUpVM> {
                   Divider(
                     thickness: 1,
                     color: Colors.amber,
+                  ),
+                  Center(
+                    child: Image.asset('images/sign_up.png'),
                   ),
                   CustomFormField(
                       controller: _username,
@@ -185,6 +191,9 @@ class SignUpState extends State<SignUpVM> {
                       ),
                     ),
                   ),
+            SizedBox(
+              height: 50,
+            )
           ],
         )));
   }

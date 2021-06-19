@@ -46,18 +46,25 @@ class LoginState extends State<Login> {
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.only(left: 16.0, bottom: 20.0, right: 16.0),
-            child: Column(
+            child: ListView(
               children: [
                 SizedBox(
                   height: 34,
                 ),
-                Text(
-                  'Log In',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                Center(
+                  child: Text(
+                    'Log In',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 Divider(
                   thickness: 1,
                   color: Colors.black38,
+                ),
+                Center(
+                  child: Container(
+                    child: Image.asset('images/login_logo.png'),
+                  ),
                 ),
                 FutureBuilder(
                     future: _initializeFirebase(),
