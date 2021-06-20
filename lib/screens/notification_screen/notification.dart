@@ -1,6 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
+import 'body.dart';
 
 class NotificationPage extends StatefulWidget {
   @override
@@ -10,15 +11,11 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPage extends State<NotificationPage> {
   int _index = 0;
 
-  Future<FirebaseApp> _initialize() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp();
-    return firebaseApp;
-  }
-
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
         appBar: Bar(),
+        body: Body(),
         endDrawer: Drawer(
           child: Column(
             children: <Widget>[
