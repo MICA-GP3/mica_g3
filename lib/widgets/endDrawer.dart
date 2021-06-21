@@ -48,8 +48,7 @@ class EndState extends State<EndDrawer> {
                   'Search Car',
                   //style: TextStyle(color: Colors.black38),
                 ),
-                onTap: () => Navigator.pushAndRemoveUntil(
-                    context, CarListPage.route(), (route) => false),
+                onTap: () => Navigator.push(context, CarListPage.route()),
               ),
             ),
             Expanded(
