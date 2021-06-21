@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/car_list_screen/car_list_vm.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 import 'package:hasta_rental/widgets/endDrawer.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -37,7 +38,7 @@ class _CarListPage extends State<CarListPage> {
       appBar: Bar(),
       endDrawer: EndDrawer(),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index,
+        //currentIndex: _index,
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
@@ -145,6 +146,26 @@ class _CarListPage extends State<CarListPage> {
                     _focusedDay = focusedDay;
                   },
                 ),
+                Divider(
+                  thickness: 3,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: ElevatedButton(
+                    child: Text('Done'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CarVM(
+                                    startDate: _rangeStart,
+                                    enDate: _rangeEnd,
+                                  )));
+                    },
+                  ),
+                )
               ],
             );
           }
