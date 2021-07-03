@@ -40,7 +40,6 @@ class CarVMState extends State<CarVM> {
                     int carPrice =
                         mainItem['carPrice'] == null ? 0 : mainItem['carPrice'];
                     String carImg = mainItem['carImg'];
-                    print("ID ${carID[1].data()}");
                     return Row(
                       children: [
                         Container(

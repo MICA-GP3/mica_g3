@@ -1,14 +1,30 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
+import 'package:hasta_rental/widgets/custom_field.dart';
+import 'package:hasta_rental/widgets/validate.dart';
 
 class BookingPage extends StatefulWidget {
+  final dynamic carDetails;
   @override
   _BookingPage createState() => _BookingPage();
+  BookingPage({required this.carDetails});
 }
 
 class _BookingPage extends State<BookingPage> {
-  int _index = 0;
+  var checkbox;
+
+  FocusNode fullnamenodes = FocusNode();
+  FocusNode icnodes = FocusNode();
+  FocusNode licensenodes = FocusNode();
+  FocusNode phonenodes = FocusNode();
+  FocusNode emergencynodes = FocusNode();
+
+  final TextEditingController fullnameController = TextEditingController();
+  final TextEditingController icController = TextEditingController();
+  final TextEditingController licenseController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emergencyController = TextEditingController();
 
   Future<FirebaseApp> _initialize() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
@@ -19,41 +35,9 @@ class _BookingPage extends State<BookingPage> {
     return Container(
       child: Scaffold(
         appBar: Bar(),
-        endDrawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              DrawerHeader(child: Text('Header')),
-              ListTile(
-                title: Text('Profile'),
-                onTap: () => {},
-              ),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.bottomCenter,
-                child: ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text("Log Out"),
-                  tileColor: Colors.amber,
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                              //title: Text("Log Out?"),
-                              content: Text("Are you sure?"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {}, child: Text("Yes")),
-                                TextButton(onPressed: () {}, child: Text("No")),
-                              ],
-                            ));
-                  },
-                ),
-              )),
-            ],
-          ),
-        ),
+        //endDrawer: EndDrawer(),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _index,
+          //currentIndex: _index,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
@@ -74,7 +58,125 @@ class _BookingPage extends State<BookingPage> {
             ),
           ],
         ),
+        body: FutureBuilder(
+          future: _initialize(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text('Error Initialize');
+            } else if (snapshot.hasData) {
+              var carDe = widget.carDetails;
+              return ListView(
+                padding: EdgeInsets.all(20),
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Center(
+                      child: Text('Driver Details',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                  Divider(
+                    thickness: 2,
+                  ),
+                  CustomFormField(
+                      enabled: true,
+                      controller: fullnameController,
+                      focusNode: fullnamenodes,
+                      keyboardType: TextInputType.text,
+                      inputAction: TextInputAction.next,
+                      label: 'Full Name',
+                      hint: 'Full Name',
+                      validator: (value) =>
+                          Validator.validateField(value: value)),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  CustomFormField(
+                      enabled: true,
+                      controller: icController,
+                      focusNode: icnodes,
+                      keyboardType: TextInputType.text,
+                      inputAction: TextInputAction.next,
+                      label: 'IC/PASSPORT',
+                      hint: 'IC/PASSPORT',
+                      validator: (value) =>
+                          Validator.validateField(value: value)),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  CustomFormField(
+                      enabled: true,
+                      controller: licenseController,
+                      focusNode: licensenodes,
+                      keyboardType: TextInputType.text,
+                      inputAction: TextInputAction.next,
+                      label: 'Driving License',
+                      hint: 'Driving License',
+                      validator: (value) =>
+                          Validator.validateField(value: value)),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  CustomFormField(
+                      enabled: true,
+                      controller: phoneController,
+                      focusNode: phonenodes,
+                      keyboardType: TextInputType.text,
+                      inputAction: TextInputAction.next,
+                      label: 'Phone No.',
+                      hint: 'Phone No.',
+                      validator: (value) =>
+                          Validator.validateField(value: value)),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  CustomFormField(
+                      enabled: true,
+                      controller: emergencyController,
+                      focusNode: emergencynodes,
+                      keyboardType: TextInputType.text,
+                      inputAction: TextInputAction.next,
+                      label: 'Emergency No.',
+                      hint: 'Emergency No.',
+                      validator: (value) =>
+                          Validator.validateField(value: value)),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  CheckboxListTile(
+                      title: Text(
+                          'I agree with the terms and conditions applied. Any damages or accidents will not be covered by HASTA except for students of UTM with a maximum of RM 20000.00 in total.'),
+                      value: checkbox != 1,
+                      onChanged: (value) {
+                        setState(() {
+                          checkbox = value! ? 10 : 1;
+                        });
+                      }),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  showButton(),
+                ],
+              );
+            }
+            return CircularProgressIndicator();
+          },
+        ),
       ),
     );
+  }
+
+  showButton() {
+    if (checkbox != 1) {
+      return Container(
+        child: ElevatedButton(
+          child: Text('Book Now'),
+          onPressed: () {},
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }

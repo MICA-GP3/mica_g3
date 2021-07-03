@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/booking_screen/booking.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 
 class CarDetail extends StatefulWidget {
@@ -49,10 +50,61 @@ class CarDS extends State<CarDetail> {
               SizedBox(
                 height: 50,
               ),
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      Icon(
+                        Icons.people,
+                      ),
+                      Text('5')
+                    ],
+                  ),
+                  Spacer(),
+                  Column(
+                    children: [
+                      Icon(
+                        Icons.flaky_rounded,
+                      ),
+                      Text('Aircon')
+                    ],
+                  ),
+                  Spacer(),
+                  Column(
+                    children: [
+                      Icon(
+                        Icons.door_sliding,
+                      ),
+                      Text('4')
+                    ],
+                  ),
+                  Spacer(),
+                  Column(
+                    children: [Icon(Icons.luggage), Text('1')],
+                  ),
+                  Spacer(),
+                  Column(
+                    children: [
+                      Icon(
+                        Icons.gamepad_rounded,
+                      ),
+                      Text('Automatic')
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 50,
+              ),
               Center(
                 child: ElevatedButton(
                   child: Text('Book Now'),
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BookingPage(
+                                carDetails: carDe,
+                              ))),
                 ),
               )
             ],
