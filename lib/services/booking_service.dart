@@ -3,4 +3,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _mainCollection = _firestore.collection('booking');
 
-class Booking {}
+class Booking {
+  static Future<void> addBooking(
+      {required String carName,
+      required String username,
+      required String custName,
+      required String carPlate,
+      required String phone,
+      required DateTime startTime,
+      required DateTime endTime,
+      required String subTotal,
+      required String payment,
+      required String status}) async {
+    DocumentReference documentReferencer = _mainCollection.doc();
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "carName": carName,
+      "username": username,
+      "custName": custName,
+      "carPlate": carPlate,
+      "phone": phone,
+      "startTime": startTime,
+      "endTime": endTime,
+      "subtotal": subTotal,
+      "payment": payment,
+      "status": status
+    };
+
+    await documentReferencer
+        .set(data)
+        .whenComplete(() => print("Note item added to the database"))
+        .catchError((e) => print(e));
+  }
+}

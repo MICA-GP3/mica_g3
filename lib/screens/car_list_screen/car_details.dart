@@ -6,9 +6,14 @@ class CarDetail extends StatefulWidget {
   @override
   CarDS createState() => CarDS();
 
-  CarDetail({required this.carDetails});
+  CarDetail(
+      {required this.carDetails,
+      required this.startTime,
+      required this.endTime});
 
   final carDetails;
+  final DateTime? startTime;
+  final DateTime? endTime;
 }
 
 class CarDS extends State<CarDetail> {
@@ -104,6 +109,8 @@ class CarDS extends State<CarDetail> {
                       MaterialPageRoute(
                           builder: (context) => BookingPage(
                                 carDetails: carDe,
+                                startTime: widget.startTime,
+                                endTime: widget.endTime,
                               ))),
                 ),
               )

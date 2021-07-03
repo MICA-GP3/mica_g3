@@ -67,7 +67,10 @@ class CarVMState extends State<CarVM> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => CarDetail(
-                                            carDetails: carID[index]))),
+                                              carDetails: carID[index],
+                                              startTime: widget.startDate,
+                                              endTime: widget.enDate,
+                                            ))),
                                 child: Text('Book Now'))
                           ],
                         ),

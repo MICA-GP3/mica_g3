@@ -1,30 +1,36 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/booking_screen/booking_vm.dart';
+import 'package:hasta_rental/services/customer_service.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 import 'package:hasta_rental/widgets/custom_field.dart';
 import 'package:hasta_rental/widgets/validate.dart';
 
 class BookingPage extends StatefulWidget {
   final dynamic carDetails;
+  final DateTime? startTime;
+  final DateTime? endTime;
   @override
   _BookingPage createState() => _BookingPage();
-  BookingPage({required this.carDetails});
+  BookingPage(
+      {required this.carDetails,
+      required this.startTime,
+      required this.endTime});
 }
 
 class _BookingPage extends State<BookingPage> {
   var checkbox;
+  String? fullname = CustomerServ.fullname;
 
   FocusNode fullnamenodes = FocusNode();
   FocusNode icnodes = FocusNode();
   FocusNode licensenodes = FocusNode();
   FocusNode phonenodes = FocusNode();
-  FocusNode emergencynodes = FocusNode();
 
   final TextEditingController fullnameController = TextEditingController();
   final TextEditingController icController = TextEditingController();
   final TextEditingController licenseController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController emergencyController = TextEditingController();
 
   Future<FirebaseApp> _initialize() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
@@ -64,7 +70,6 @@ class _BookingPage extends State<BookingPage> {
             if (snapshot.hasError) {
               return Text('Error Initialize');
             } else if (snapshot.hasData) {
-              var carDe = widget.carDetails;
               return ListView(
                 padding: EdgeInsets.all(20),
                 children: [
@@ -131,19 +136,6 @@ class _BookingPage extends State<BookingPage> {
                   SizedBox(
                     height: 24,
                   ),
-                  CustomFormField(
-                      enabled: true,
-                      controller: emergencyController,
-                      focusNode: emergencynodes,
-                      keyboardType: TextInputType.text,
-                      inputAction: TextInputAction.next,
-                      label: 'Emergency No.',
-                      hint: 'Emergency No.',
-                      validator: (value) =>
-                          Validator.validateField(value: value)),
-                  SizedBox(
-                    height: 24,
-                  ),
                   CheckboxListTile(
                       title: Text(
                           'I agree with the terms and conditions applied. Any damages or accidents will not be covered by HASTA except for students of UTM with a maximum of RM 20000.00 in total.'),
@@ -172,7 +164,16 @@ class _BookingPage extends State<BookingPage> {
       return Container(
         child: ElevatedButton(
           child: Text('Book Now'),
-          onPressed: () {},
+          onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => BookVM(
+                        carDetails: widget.carDetails,
+                        startTime: widget.startTime,
+                        endTime: widget.endTime,
+                        fullname: fullnameController.text,
+                        phone: phoneController.text,
+                      ))),
         ),
       );
     } else {

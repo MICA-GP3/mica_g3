@@ -6,6 +6,8 @@ final CollectionReference _mainCollection = _firestore.collection('customer');
 class CustomerServ {
   static String? username;
   static String? password;
+  static String? fullname;
+  static String? phone;
 
   static Future<void> addItem(
       {required String username,
