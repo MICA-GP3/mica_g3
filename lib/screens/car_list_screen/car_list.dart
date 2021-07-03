@@ -18,7 +18,6 @@ final kFirstDay = DateTime(kNow.year, kNow.month - 3, kNow.day);
 final kLastDay = DateTime(kNow.year, kNow.month + 3, kNow.day);
 
 class _CarListPage extends State<CarListPage> {
-  int _index = 0;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -31,6 +30,10 @@ class _CarListPage extends State<CarListPage> {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
     return firebaseApp;
   }
+
+  TimeOfDay? startTime, endTime;
+
+  TimeOfDay? picked1, picked2;
 
   Widget build(BuildContext context) {
     return Container(
@@ -65,6 +68,33 @@ class _CarListPage extends State<CarListPage> {
           if (snapshot.hasError) {
             return Text('Error Connecting');
           } else if (snapshot.hasData) {
+            if (_rangeStart != null) {
+              startTime = TimeOfDay.fromDateTime(_rangeStart!);
+            }
+            if (_rangeEnd != null) {
+              endTime = TimeOfDay.fromDateTime(_rangeEnd!);
+            }
+
+            selectTime(context) async {
+              picked1 = await showTimePicker(
+                  context: context, initialTime: startTime!);
+
+              setState(() {
+                startTime = picked1;
+                print(startTime);
+              });
+            }
+
+            selectTime2(context) async {
+              picked2 =
+                  await showTimePicker(context: context, initialTime: endTime!);
+
+              setState(() {
+                endTime = picked2;
+                print(startTime);
+              });
+            }
+
             return ListView(
               children: [
                 SizedBox(
@@ -89,12 +119,16 @@ class _CarListPage extends State<CarListPage> {
                       Row(
                         children: [
                           Text(
-                              '${_rangeStart == null ? "" : DateFormat('EEE d MMM').format(_rangeStart!)}'),
+                              '${_rangeStart == null ? "" : DateFormat('EEE d MMM').format(_rangeStart!)} \n'
+                              '$startTime'),
                           Spacer(),
                           Icon(Icons.arrow_forward),
                           Spacer(),
                           Text(
-                              '${_rangeEnd == null ? "" : DateFormat('EEE d MMM').format(_rangeEnd!)}'),
+                            '${_rangeEnd == null ? "" : DateFormat('EEE d MMM').format(_rangeEnd!)} \n'
+                            '$endTime',
+                            textAlign: TextAlign.right,
+                          ),
                         ],
                       ),
                     ],
@@ -149,6 +183,12 @@ class _CarListPage extends State<CarListPage> {
                 Divider(
                   thickness: 3,
                 ),
+                ElevatedButton(
+                    onPressed: () {
+                      selectTime(context);
+                      selectTime2(context);
+                    },
+                    child: Text('Select Time')),
                 SizedBox(
                   height: 10,
                 ),

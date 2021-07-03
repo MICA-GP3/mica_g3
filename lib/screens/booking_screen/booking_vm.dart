@@ -47,6 +47,13 @@ class _BookVMState extends State<BookVM> {
               } else if (snapshot.connectionState == ConnectionState.done) {
                 return ElevatedButton(
                     onPressed: () async {
+                      int price = carDe['carPrice'];
+                      int calTotal(DateTime from, DateTime to) {
+                        from = DateTime(from.year, from.month, from.day);
+                        to = DateTime(to.year, to.month, to.day);
+                        return to.difference(from).inHours.round() * price;
+                      }
+
                       await Booking.addBooking(
                           carName: carDe['carName'],
                           username: username,
@@ -55,7 +62,8 @@ class _BookVMState extends State<BookVM> {
                           phone: widget.phone,
                           startTime: widget.startTime!,
                           endTime: widget.endTime!,
-                          subTotal: "100",
+                          subTotal: calTotal(widget.startTime!, widget.endTime!)
+                              .toString(),
                           payment: "Paid",
                           status: "Pending");
 
