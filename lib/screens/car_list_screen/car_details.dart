@@ -108,7 +108,7 @@ class CarDS extends State<CarDetail> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => BookingPage(
-                                carDetails: carDe,
+                                carDetails: widget.carDetails,
                                 startTime: widget.startTime,
                                 endTime: widget.endTime,
                               ))),

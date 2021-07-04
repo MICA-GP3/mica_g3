@@ -5,6 +5,7 @@ final CollectionReference _mainCollection = _firestore.collection('car');
 
 class CarSer {
   static String? carName;
+  static String? carID;
 
   static Future<QuerySnapshot> readCar() async {
     var mainCollection =
@@ -13,17 +14,19 @@ class CarSer {
     return mainCollection;
   }
 
-  static Future<void> addCar({
-    required String username,
-    required String fullname,
+  static Future<void> updateCar({
+    required bool available,
+    required String carId,
   }) async {
-    DocumentReference documentReferencer = _mainCollection.doc(carName);
+    DocumentReference documentReferencer = _mainCollection.doc(carId);
 
-    Map<String, dynamic> data = <String, dynamic>{};
+    Map<String, dynamic> data = <String, dynamic>{
+      "carAvailable": available,
+    };
 
     await documentReferencer
-        .set(data)
-        .whenComplete(() => print("Note item added to the database"))
+        .update(data)
+        .whenComplete(() => print("Note item updated in the database"))
         .catchError((e) => print(e));
   }
 }

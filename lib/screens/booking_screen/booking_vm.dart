@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/customer_profile_screen/customer_profile.dart';
 import 'package:hasta_rental/services/booking_service.dart';
+import 'package:hasta_rental/services/car_service.dart';
 import 'package:hasta_rental/services/customer_service.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 
@@ -28,10 +32,14 @@ class _BookVMState extends State<BookVM> {
 
   var carDe;
   String username = CustomerServ.username!;
+  String? paymentMethod;
+
+  final _editFormkey = GlobalKey<FormState>();
+  bool _isProcessing = false;
 
   @override
   void initState() {
-    carDe = widget.carDetails;
+    carDe = widget.carDetails.data();
     super.initState();
   }
 
@@ -45,35 +53,116 @@ class _BookVMState extends State<BookVM> {
               if (snapshot.hasError) {
                 return Text('Error Initialized');
               } else if (snapshot.connectionState == ConnectionState.done) {
-                return ElevatedButton(
-                    onPressed: () async {
-                      int price = carDe['carPrice'];
-                      int calTotal(DateTime from, DateTime to) {
-                        from = DateTime(from.year, from.month, from.day,
-                            from.hour, from.minute);
-                        to = DateTime(
-                            to.year, to.month, to.day, to.hour, to.minute);
-                        return to.difference(from).inHours.round() * price;
-                      }
+                //BUTTON FUNCTION
+                buttonBook() {
+                  if (paymentMethod != null) {
+                    return ElevatedButton(
+                        onPressed: () async {
+                          int price = carDe['carPrice'];
+                          int calTotal(DateTime from, DateTime to) {
+                            from = DateTime(from.year, from.month, from.day,
+                                from.hour, from.minute);
+                            to = DateTime(
+                                to.year, to.month, to.day, to.hour, to.minute);
+                            return to.difference(from).inHours.round() * price;
+                          }
 
-                      await Booking.addBooking(
-                          carName: carDe['carName'],
-                          username: username,
-                          custName: widget.fullname,
-                          carPlate: carDe['carPlate'],
-                          phone: widget.phone,
-                          startTime: widget.startTime!,
-                          endTime: widget.endTime!,
-                          subTotal: calTotal(widget.startTime!, widget.endTime!)
-                              .toString(),
-                          payment: "Paid",
-                          status: "Pending");
+                          if (_editFormkey.currentState!.validate()) {
+                            setState(() {
+                              _isProcessing = true;
+                            });
 
-                      AlertDialog(
-                        title: Text('Done Booking'),
-                      );
-                    },
-                    child: Text('Book Now'));
+                            await Booking.addBooking(
+                                carName: carDe['carName'],
+                                username: username,
+                                custName: widget.fullname,
+                                carPlate: carDe['carPlate'],
+                                phone: widget.phone,
+                                startTime: widget.startTime!,
+                                endTime: widget.endTime!,
+                                subTotal:
+                                    calTotal(widget.startTime!, widget.endTime!)
+                                        .toString(),
+                                payment: "Paid",
+                                status: "Pending");
+
+                            await CarSer.updateCar(
+                                available: false, carId: widget.carDetails.id);
+                            setState(() {
+                              _isProcessing = false;
+                            });
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      content: Text('Done Booking'),
+                                    ));
+
+                            Timer(
+                                Duration(seconds: 3),
+                                () => Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            CustomerProfile()),
+                                    (route) => false));
+                          }
+                        },
+                        child: Text('Book Now'));
+                  } else {
+                    return Container();
+                  }
+                }
+
+                //START VIEW
+                return Form(
+                    key: _editFormkey,
+                    child: ListView(
+                      padding: EdgeInsets.all(20),
+                      children: [
+                        Center(
+                          child: Text(
+                            'Payment Method',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 25),
+                          ),
+                        ),
+                        Divider(
+                          thickness: 2,
+                        ),
+                        RadioListTile(
+                            title: Text('VISA / MASTERCARD'),
+                            value: 'VISA/MASTERCARD',
+                            groupValue: paymentMethod,
+                            onChanged: (value) {
+                              setState(() {
+                                paymentMethod = value as String?;
+                              });
+                            }),
+                        RadioListTile(
+                            title: Text('ONLINE BANKING'),
+                            value: 'ONLINE_BANKING',
+                            groupValue: paymentMethod,
+                            onChanged: (value) {
+                              setState(() {
+                                paymentMethod = value as String?;
+                              });
+                            }),
+                        RadioListTile(
+                            title: Text('PAYPAL'),
+                            value: 'PAYPAL',
+                            groupValue: paymentMethod,
+                            onChanged: (value) {
+                              setState(() {
+                                paymentMethod = value as String?;
+                              });
+                            }),
+                        _isProcessing
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : buttonBook(),
+                      ],
+                    ));
               }
               return CircularProgressIndicator();
             }));
