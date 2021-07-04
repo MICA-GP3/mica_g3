@@ -49,8 +49,10 @@ class _BookVMState extends State<BookVM> {
                     onPressed: () async {
                       int price = carDe['carPrice'];
                       int calTotal(DateTime from, DateTime to) {
-                        from = DateTime(from.year, from.month, from.day);
-                        to = DateTime(to.year, to.month, to.day);
+                        from = DateTime(from.year, from.month, from.day,
+                            from.hour, from.minute);
+                        to = DateTime(
+                            to.year, to.month, to.day, to.hour, to.minute);
                         return to.difference(from).inHours.round() * price;
                       }
 
@@ -67,7 +69,9 @@ class _BookVMState extends State<BookVM> {
                           payment: "Paid",
                           status: "Pending");
 
-                      Text('Done Booking');
+                      AlertDialog(
+                        title: Text('Done Booking'),
+                      );
                     },
                     child: Text('Book Now'));
               }

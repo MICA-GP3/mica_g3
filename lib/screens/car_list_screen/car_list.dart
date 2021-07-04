@@ -35,6 +35,8 @@ class _CarListPage extends State<CarListPage> {
 
   TimeOfDay? picked1, picked2;
 
+  DateTime? startDateTime, endDateTime;
+
   Widget build(BuildContext context) {
     return Container(
         child: Scaffold(
@@ -81,7 +83,13 @@ class _CarListPage extends State<CarListPage> {
 
               setState(() {
                 startTime = picked1;
-                print(startTime);
+                startDateTime = DateTime.utc(
+                    _rangeStart!.year,
+                    _rangeStart!.month,
+                    _rangeStart!.day,
+                    picked1!.hour,
+                    picked1!.minute);
+                print(startDateTime);
               });
             }
 
@@ -91,7 +99,14 @@ class _CarListPage extends State<CarListPage> {
 
               setState(() {
                 endTime = picked2;
-                print(startTime);
+                endDateTime = DateTime.utc(
+                  _rangeEnd!.year,
+                  _rangeEnd!.month,
+                  _rangeEnd!.day,
+                  picked2!.hour,
+                  picked2!.minute,
+                );
+                print(endDateTime);
               });
             }
 
@@ -119,14 +134,12 @@ class _CarListPage extends State<CarListPage> {
                       Row(
                         children: [
                           Text(
-                              '${_rangeStart == null ? "" : DateFormat('EEE d MMM').format(_rangeStart!)} \n'
-                              '$startTime'),
+                              '${startDateTime == null ? "" : DateFormat('EEE d MMM HH:mm').format(startDateTime!)}'),
                           Spacer(),
                           Icon(Icons.arrow_forward),
                           Spacer(),
                           Text(
-                            '${_rangeEnd == null ? "" : DateFormat('EEE d MMM').format(_rangeEnd!)} \n'
-                            '$endTime',
+                            '${endDateTime == null ? "" : DateFormat('EEE d MMM HH:mm').format(endDateTime!)}',
                             textAlign: TextAlign.right,
                           ),
                         ],
@@ -161,13 +174,23 @@ class _CarListPage extends State<CarListPage> {
                     }
                   },
                   onRangeSelected: (start, end, focusedDay) {
-                    setState(() {
-                      _selectedDay = null;
-                      _focusedDay = focusedDay;
-                      _rangeStart = start;
-                      _rangeEnd = end;
-                      _rangeSelectionMode = RangeSelectionMode.toggledOn;
-                    });
+                    if (end == null) {
+                      setState(() {
+                        _selectedDay = null;
+                        _focusedDay = focusedDay;
+                        _rangeStart = start;
+                        _rangeEnd = start;
+                        _rangeSelectionMode = RangeSelectionMode.toggledOn;
+                      });
+                    } else {
+                      setState(() {
+                        _selectedDay = null;
+                        _focusedDay = focusedDay;
+                        _rangeStart = start;
+                        _rangeEnd = end;
+                        _rangeSelectionMode = RangeSelectionMode.toggledOn;
+                      });
+                    }
                   },
                   onFormatChanged: (format) {
                     if (_calendarFormat != format) {
@@ -185,8 +208,8 @@ class _CarListPage extends State<CarListPage> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      selectTime(context);
                       selectTime2(context);
+                      selectTime(context);
                     },
                     child: Text('Select Time')),
                 SizedBox(
@@ -200,8 +223,8 @@ class _CarListPage extends State<CarListPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => CarVM(
-                                    startDate: _rangeStart,
-                                    enDate: _rangeEnd,
+                                    startDate: startDateTime,
+                                    enDate: endDateTime,
                                   )));
                     },
                   ),
