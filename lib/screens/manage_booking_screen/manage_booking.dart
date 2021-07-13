@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/services/booking_service.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
+import 'package:hasta_rental/widgets/endDrawer.dart';
 
 class ManageBookingPage extends StatefulWidget {
   @override
@@ -19,39 +22,7 @@ class _ManageBookingPage extends State<ManageBookingPage> {
     return Container(
       child: Scaffold(
         appBar: Bar(),
-        endDrawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              DrawerHeader(child: Text('Header')),
-              ListTile(
-                title: Text('Profile'),
-                onTap: () => {},
-              ),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.bottomCenter,
-                child: ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text("Log Out"),
-                  tileColor: Colors.amber,
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                              //title: Text("Log Out?"),
-                              content: Text("Are you sure?"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {}, child: Text("Yes")),
-                                TextButton(onPressed: () {}, child: Text("No")),
-                              ],
-                            ));
-                  },
-                ),
-              )),
-            ],
-          ),
-        ),
+        endDrawer: EndDrawer(),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _index,
           type: BottomNavigationBarType.fixed,
@@ -74,6 +45,24 @@ class _ManageBookingPage extends State<ManageBookingPage> {
             ),
           ],
         ),
+        body: SafeArea(
+            child: FutureBuilder<QuerySnapshot>(
+          future: Booking.readBooking(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(),
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text('Manage Booking'),
+                  );
+                },
+              );
+            }
+            return CircularProgressIndicator();
+          },
+        )),
       ),
     );
   }

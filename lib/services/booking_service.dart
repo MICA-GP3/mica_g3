@@ -35,4 +35,10 @@ class Booking {
         .whenComplete(() => print("Note item added to the database"))
         .catchError((e) => print(e));
   }
+
+  static Future<QuerySnapshot> readBooking() async {
+    QuerySnapshot bookingDoc = await _mainCollection.get();
+
+    return bookingDoc;
+  }
 }

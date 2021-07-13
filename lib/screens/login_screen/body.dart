@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/screens/customer_profile_screen/customer_profile.dart';
+import 'package:hasta_rental/screens/manage_booking_screen/manage_booking.dart';
 import 'package:hasta_rental/services/customer_service.dart';
 import 'package:hasta_rental/widgets/custom_field.dart';
 import 'package:hasta_rental/widgets/validate.dart';
@@ -51,11 +53,19 @@ class BodyState extends State<Body> {
                   widget.focusNode.unfocus();
                   if (_loginInFormKey.currentState!.validate()) {
                     CustomerServ.username = _uidController.text;
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CustomerProfile()),
-                        (route) => false);
+
+                    if (CustomerServ.admin == true) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ManageBookingPage()));
+                    } else {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CustomerProfile()),
+                          (route) => false);
+                    }
                   }
                 },
                 child: Padding(

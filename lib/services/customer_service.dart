@@ -8,6 +8,7 @@ class CustomerServ {
   static String? password;
   static String? fullname;
   static String? phone;
+  static bool? admin;
 
   static Future<void> addItem(
       {required String username,
