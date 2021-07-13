@@ -69,7 +69,7 @@ class _ConfirmLoginState extends State<ConfirmLogin> {
                       Padding(
                         padding: EdgeInsets.all(10),
                         child: TextFField(
-                            value: CustomerServ.username.toString(),
+                            value: username.toString(),
                             enable: false,
                             label: 'Username'),
                       ),

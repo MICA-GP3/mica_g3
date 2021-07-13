@@ -41,4 +41,20 @@ class Booking {
 
     return bookingDoc;
   }
+
+  static Future<void> updateItem({
+    required String id,
+    required String status,
+  }) async {
+    DocumentReference documentReferencer = _mainCollection.doc(id);
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "status": status,
+    };
+
+    await documentReferencer
+        .update(data)
+        .whenComplete(() => print("Note item updated in the database"))
+        .catchError((e) => print(e));
+  }
 }

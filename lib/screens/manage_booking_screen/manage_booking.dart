@@ -11,8 +11,6 @@ class ManageBookingPage extends StatefulWidget {
 }
 
 class _ManageBookingPage extends State<ManageBookingPage> {
-  int _index = 0;
-
   Future<FirebaseApp> _initialize() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
     return firebaseApp;
@@ -24,7 +22,6 @@ class _ManageBookingPage extends State<ManageBookingPage> {
         appBar: Bar(),
         endDrawer: EndDrawer(),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _index,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
@@ -45,17 +42,45 @@ class _ManageBookingPage extends State<ManageBookingPage> {
             ),
           ],
         ),
-        body: SafeArea(
+        body: Container(
             child: FutureBuilder<QuerySnapshot>(
           future: Booking.readBooking(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(),
+                padding: EdgeInsets.all(20),
+                separatorBuilder: (context, index) => SizedBox(
+                  height: 10,
+                ),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('Manage Booking'),
+                  var i = index - 1;
+                  // if (i == -1) {
+                  //   return Center(
+                  //     child: Text('Customer Booking'),
+                  //   );
+                  // }
+                  var detailID = snapshot.data!.docs[index].id;
+                  var details = snapshot.data!.docs[index].data()! as Map;
+                  var colors;
+                  if (details['status'] == "Pending") {
+                    colors = Colors.yellow[100];
+                  } else if (details['status'] == "Success") {
+                    colors = Colors.green[100];
+                  } else {
+                    colors = Colors.red[100];
+                  }
+                  return Container(
+                    padding: EdgeInsets.all(10),
+                    color: colors,
+                    child: Row(
+                      children: [
+                        Text(
+                            'Booking ID: $detailID \nVechile Type: ${details['carName']}'),
+                        Spacer(),
+                        ElevatedButton(onPressed: () {}, child: Text('View')),
+                      ],
+                    ),
                   );
                 },
               );
