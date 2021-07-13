@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
+import 'package:hasta_rental/screens/report_screen/report_vm.dart';
 
 class ReportPage extends StatefulWidget {
   @override
@@ -10,10 +11,10 @@ class ReportPage extends StatefulWidget {
 class _ReportPage extends State<ReportPage> {
   int _index = 0;
 
-  Future<FirebaseApp> _initialize() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp();
-    return firebaseApp;
-  }
+  // Future<FirebaseApp> _initialize() async {
+  //   FirebaseApp firebaseApp = await Firebase.initializeApp();
+  //   return firebaseApp;
+  // }
 
   Widget build(BuildContext context) {
     return Container(
@@ -74,6 +75,7 @@ class _ReportPage extends State<ReportPage> {
             ),
           ],
         ),
+        body: PieChartPage(),
       ),
     );
   }
