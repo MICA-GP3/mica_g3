@@ -28,6 +28,7 @@ class CustomerServ {
       "phone": phone,
       "email": email,
       "password": password,
+      "admin": false
     };
 
     await documentReferencer
