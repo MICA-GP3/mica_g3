@@ -1,5 +1,4 @@
 class Customer {
-  int _id;
   String _username;
   String _fullname;
   String _ic;
@@ -7,9 +6,6 @@ class Customer {
   String _phone;
   String _email;
   String _password;
-
-  get id => this._id;
-  set id(value) => this._id = value;
 
   get username => _username;
   set username(value) => _username = value;
@@ -33,7 +29,6 @@ class Customer {
   set password(value) => _password = value;
 
   Customer({
-    int id = 0,
     required String username,
     required String fullname,
     required String ic,
@@ -41,8 +36,7 @@ class Customer {
     required String phone,
     required String email,
     required String password,
-  })  : _id = id,
-        _username = username,
+  })  : _username = username,
         _fullname = fullname,
         _ic = ic,
         _matricNo = matricNo,
@@ -52,7 +46,6 @@ class Customer {
 
   Customer.copy(Customer from)
       : this(
-            id: from.id,
             username: from.username,
             fullname: from.fullname,
             ic: from.ic,
@@ -62,8 +55,7 @@ class Customer {
             password: from.password);
 
   Customer.fromJson(Map<String, dynamic> json)
-      : _id = json['id'],
-        _username = json['username'],
+      : _username = json['username'],
         _fullname = json['fullname'],
         _ic = json['ic'],
         _matricNo = json['matricNo'],
@@ -72,7 +64,6 @@ class Customer {
         _password = json['password'];
 
   Map<String, dynamic> toJson() => {
-        'id': id,
         'username': username,
         'fullname': fullname,
         'ic': ic,
