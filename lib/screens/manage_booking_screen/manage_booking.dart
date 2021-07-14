@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/manage_booking_screen/manage_booking_vm.dart';
 import 'package:hasta_rental/services/booking_service.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 import 'package:hasta_rental/widgets/endDrawer.dart';
@@ -54,12 +55,6 @@ class _ManageBookingPage extends State<ManageBookingPage> {
                 ),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
-                  var i = index - 1;
-                  // if (i == -1) {
-                  //   return Center(
-                  //     child: Text('Customer Booking'),
-                  //   );
-                  // }
                   var detailID = snapshot.data!.docs[index].id;
                   var details = snapshot.data!.docs[index].data()! as Map;
                   var colors;
@@ -78,7 +73,17 @@ class _ManageBookingPage extends State<ManageBookingPage> {
                         Text(
                             'Booking ID: $detailID \nVechile Type: ${details['carName']}'),
                         Spacer(),
-                        ElevatedButton(onPressed: () {}, child: Text('View')),
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ManageBVM(
+                                            bookingDetails: details,
+                                            bookingID: detailID,
+                                          )));
+                            },
+                            child: Text('View')),
                       ],
                     ),
                   );
