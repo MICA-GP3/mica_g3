@@ -11,10 +11,10 @@ class ReportPage extends StatefulWidget {
 class _ReportPage extends State<ReportPage> {
   int _index = 0;
 
-  // Future<FirebaseApp> _initialize() async {
-  //   FirebaseApp firebaseApp = await Firebase.initializeApp();
-  //   return firebaseApp;
-  // }
+  Future<FirebaseApp> _initialize() async {
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    return firebaseApp;
+  }
 
   Widget build(BuildContext context) {
     return Container(
@@ -75,7 +75,7 @@ class _ReportPage extends State<ReportPage> {
             ),
           ],
         ),
-        body: PieChartPage(),
+        body: TableReportPage(),
       ),
     );
   }
