@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/main_screen/mainpage.dart';
 import 'package:hasta_rental/screens/manage_booking_screen/manage_booking_vm.dart';
 import 'package:hasta_rental/services/booking_service.dart';
+import 'package:hasta_rental/services/customer_service.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
-import 'package:hasta_rental/widgets/endDrawer.dart';
 
 class ManageBookingPage extends StatefulWidget {
   @override
@@ -21,7 +22,53 @@ class _ManageBookingPage extends State<ManageBookingPage> {
     return Container(
       child: Scaffold(
         appBar: Bar(),
-        endDrawer: EndDrawer(),
+        endDrawer: Drawer(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 50,
+              ),
+              DrawerHeader(child: Text('Hello Admin !')),
+              Expanded(
+                  child: Align(
+                alignment: Alignment.bottomCenter,
+                child: ListTile(
+                  leading: Icon(Icons.logout),
+                  title: Text("Log Out"),
+                  tileColor: Colors.amber,
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                              //title: Text("Log Out?"),
+                              content: Text("Are you sure?"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        CustomerServ.username = null;
+                                        Navigator.of(context)
+                                            .pushAndRemoveUntil(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MainPage()),
+                                                (route) => false);
+                                      });
+                                    },
+                                    child: Text("Yes")),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("No")),
+                              ],
+                            ));
+                  },
+                ),
+              )),
+            ],
+          ),
+        ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: [
@@ -31,15 +78,7 @@ class _ManageBookingPage extends State<ManageBookingPage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today),
-              label: 'Calendar',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Notification',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
+              label: 'Report',
             ),
           ],
         ),

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 import 'package:hasta_rental/screens/report_screen/report_vm.dart';
+import 'package:hasta_rental/services/report_service.dart';
 
 class ReportPage extends StatefulWidget {
   @override
@@ -75,7 +76,12 @@ class _ReportPage extends State<ReportPage> {
             ),
           ],
         ),
-        body: TableReportPage(),
+        body: FutureBuilder(
+          future: _initialize(),
+          builder: (context, snapshot) {
+            return TableReportPage();
+          },
+        ),
       ),
     );
   }
