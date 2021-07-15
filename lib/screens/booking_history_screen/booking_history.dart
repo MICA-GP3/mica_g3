@@ -62,11 +62,11 @@ class _BookingHistoryPage extends State<BookingHistoryPage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today),
-              label: 'Calendar',
+              label: 'Booking',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Notification',
+              icon: Icon(Icons.book_online),
+              label: 'History',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
