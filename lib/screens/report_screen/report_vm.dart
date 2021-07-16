@@ -1,16 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/services/report_service.dart';
-import 'package:hasta_rental/widgets/appbar.dart';
-import 'package:hasta_rental/services/booking_service.dart';
-import 'package:hasta_rental/widgets/appbar.dart';
-import 'package:hasta_rental/widgets/text_field.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class TableReportPage extends StatefulWidget {
-  // final dynamic bookingDetails;
-  // final String bookingID;
-  // TableReportPage({required this.bookingDetails, required this.bookingID});
+  TableReportPage();
 
   @override
   _TableReportPage createState() => _TableReportPage();
@@ -19,8 +13,6 @@ class TableReportPage extends StatefulWidget {
 class _TableReportPage extends State<TableReportPage> {
   @override
   Widget build(BuildContext context) {
-    // var details = widget.bookingDetails;
-
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: FutureBuilder<QuerySnapshot>(
@@ -29,75 +21,49 @@ class _TableReportPage extends State<TableReportPage> {
               if (snapshot.hasError) {
                 return Text('Error Showing');
               } else if (snapshot.hasData || snapshot.data != null) {
+                var number = snapshot.data!.docs.length;
+                var details;
+                var total = Map();
+                List<String> cars = [];
+                for (int i = 0; i < number; i++) {
+                  details = snapshot.data!.docs[i].data();
+                  cars.add(details['carName']);
+                }
+                cars.forEach((element) => total[element] =
+                    !total.containsKey(element) ? (1) : (total[element] + 1));
+                print("$cars : $total ");
+                Map<String, double> dataM =
+                    total.map((key, value) => MapEntry(key, value?.toDouble()));
                 return Scaffold(
-                    body: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
+                    body: Container(
+                  child: ListView(
+                    padding: EdgeInsets.all(20),
+                    children: [
+                      Container(
+                        child: Center(
+                          child: Text(
+                            'Report Car Sales',
+                            style: TextStyle(fontSize: 30),
+                          ),
                         ),
-                        itemCount: snapshot.data!.docs.length,
-                        padding: EdgeInsets.all(8),
-                        itemBuilder: (context, index) {
-                          var mainItem = snapshot.data!.docs[index].data()
-                              as Map<String, dynamic>;
-                          String car = mainItem['carName'];
-                          String carPlate = mainItem['carPlate'];
-
-                          return Container(
-                            padding: const EdgeInsets.all(20),
-                            child: Center(
-                              child: Text(
-                                // "${mainItem['carName']}"
-                                "$carPlate",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          );
-                        }));
+                      ),
+                      Divider(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 60,
+                      ),
+                      PieChart(
+                        dataMap: dataM,
+                      ),
+                    ],
+                  ),
+                ));
               }
               return Center(
                   child: CircularProgressIndicator(
                 color: Colors.redAccent,
               ));
-            })
-
-        // Scaffold(
-        //     body: ListView(children: <Widget>[
-        //   Center(
-        //       child: Text(
-        //     'Business Report',
-        //     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        //   )),
-        //   DataTable(
-        //     columns: [
-        //       DataColumn(
-        //           label: Text('Car',
-        //               style:
-        //                   TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-        //       DataColumn(
-        //           label: Text('Booking Count',
-        //               style:
-        //                   TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-        //     ],
-        //     rows: [
-        //       DataRow(cells: [
-        //         DataCell(Text('Myvi')),
-        //         DataCell(Text('4')),
-        //       ]),
-        //       DataRow(cells: [
-        //         DataCell(Text('Bezza')),
-        //         DataCell(Text('2')),
-        //       ]),
-        //       DataRow(cells: [
-        //         DataCell(Text('X70')),
-        //         DataCell(Text('1')),
-        //       ]),
-        //     ],
-        //   ),
-        // ])),
-        );
+            }));
   }
 }

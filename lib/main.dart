@@ -6,11 +6,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/screens/main_screen/mainpage.dart';
-import 'package:hasta_rental/screens/report_screen/report.dart';
 
 void main() => runApp(MaterialApp(
       title: 'Hasta Car Rental',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.amber),
-      home: ReportPage(),
+      home: MainPage(),
     ));

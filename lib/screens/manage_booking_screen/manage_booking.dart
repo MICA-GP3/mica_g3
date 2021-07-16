@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/screens/main_screen/mainpage.dart';
 import 'package:hasta_rental/screens/manage_booking_screen/manage_booking_vm.dart';
+import 'package:hasta_rental/screens/report_screen/report.dart';
 import 'package:hasta_rental/services/booking_service.dart';
 import 'package:hasta_rental/services/customer_service.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
@@ -13,10 +14,7 @@ class ManageBookingPage extends StatefulWidget {
 }
 
 class _ManageBookingPage extends State<ManageBookingPage> {
-  Future<FirebaseApp> _initialize() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp();
-    return firebaseApp;
-  }
+  int _index = 0;
 
   Widget build(BuildContext context) {
     return Container(
@@ -70,6 +68,7 @@ class _ManageBookingPage extends State<ManageBookingPage> {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
+          onTap: _onTap,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
@@ -134,5 +133,23 @@ class _ManageBookingPage extends State<ManageBookingPage> {
         )),
       ),
     );
+  }
+
+  void _onTap(int ind) {
+    setState(() {
+      _index = ind;
+      _changeRoute();
+    });
+  }
+
+  Future<dynamic> _changeRoute() {
+    switch (_index) {
+      case 1:
+        return Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ReportPage()));
+
+      default:
+        return Navigator.pushNamed(context, '');
+    }
   }
 }

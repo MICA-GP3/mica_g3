@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/main_screen/mainpage.dart';
+import 'package:hasta_rental/screens/manage_booking_screen/manage_booking.dart';
+import 'package:hasta_rental/services/customer_service.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 import 'package:hasta_rental/screens/report_screen/report_vm.dart';
-import 'package:hasta_rental/services/report_service.dart';
 
 class ReportPage extends StatefulWidget {
   @override
@@ -10,12 +12,12 @@ class ReportPage extends StatefulWidget {
 }
 
 class _ReportPage extends State<ReportPage> {
-  int _index = 0;
-
   Future<FirebaseApp> _initialize() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
     return firebaseApp;
   }
+
+  int _index = 1;
 
   Widget build(BuildContext context) {
     return Container(
@@ -24,11 +26,10 @@ class _ReportPage extends State<ReportPage> {
         endDrawer: Drawer(
           child: Column(
             children: <Widget>[
-              DrawerHeader(child: Text('Header')),
-              ListTile(
-                title: Text('Profile'),
-                onTap: () => {},
+              SizedBox(
+                height: 50,
               ),
+              DrawerHeader(child: Text('Hello Admin !')),
               Expanded(
                   child: Align(
                 alignment: Alignment.bottomCenter,
@@ -44,8 +45,23 @@ class _ReportPage extends State<ReportPage> {
                               content: Text("Are you sure?"),
                               actions: [
                                 TextButton(
-                                    onPressed: () {}, child: Text("Yes")),
-                                TextButton(onPressed: () {}, child: Text("No")),
+                                    onPressed: () {
+                                      setState(() {
+                                        CustomerServ.username = null;
+                                        Navigator.of(context)
+                                            .pushAndRemoveUntil(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MainPage()),
+                                                (route) => false);
+                                      });
+                                    },
+                                    child: Text("Yes")),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("No")),
                               ],
                             ));
                   },
@@ -56,6 +72,7 @@ class _ReportPage extends State<ReportPage> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _index,
+          onTap: _onTap,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
@@ -64,25 +81,40 @@ class _ReportPage extends State<ReportPage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today),
-              label: 'Calendar',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Notification',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
+              label: 'Report',
             ),
           ],
         ),
         body: FutureBuilder(
           future: _initialize(),
           builder: (context, snapshot) {
-            return TableReportPage();
+            if (snapshot.hasData) {
+              return TableReportPage();
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           },
         ),
       ),
     );
+  }
+
+  void _onTap(int ind) {
+    setState(() {
+      _index = ind;
+      _changeRoute();
+    });
+  }
+
+  Future<dynamic> _changeRoute() {
+    switch (_index) {
+      case 0:
+        return Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ManageBookingPage()));
+
+      default:
+        return Navigator.pushNamed(context, '');
+    }
   }
 }
