@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
+import 'package:hasta_rental/screens/booking_history_screen/booking_history_vm.dart';
+import 'package:hasta_rental/services/booking_service.dart';
+import 'package:hasta_rental/screens/report_screen/report.dart';
 
 class BookingHistoryPage extends StatefulWidget {
   @override
@@ -74,6 +77,56 @@ class _BookingHistoryPage extends State<BookingHistoryPage> {
             ),
           ],
         ),
+        body: Container(
+            child: FutureBuilder<QuerySnapshot>(
+          future: Booking.readBooking(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.separated(
+                padding: EdgeInsets.all(20),
+                separatorBuilder: (context, index) => SizedBox(
+                  height: 10,
+                ),
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  var detailID = snapshot.data!.docs[index].id;
+                  var details = snapshot.data!.docs[index].data()! as Map;
+                  var colors;
+                  if (details['status'] == "Pending") {
+                    colors = Colors.yellow[100];
+                  } else if (details['status'] == "Success") {
+                    colors = Colors.green[100];
+                  } else {
+                    colors = Colors.red[100];
+                  }
+                  return Container(
+                    padding: EdgeInsets.all(10),
+                    color: colors,
+                    child: Row(
+                      children: [
+                        Text(
+                            'Booking ID: $detailID \nVechile Type: ${details['carName']}'),
+                        Spacer(),
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ViewBookingHistory(
+                                            bookingDetails: details,
+                                            bookingID: detailID,
+                                          )));
+                            },
+                            child: Text('View')),
+                      ],
+                    ),
+                  );
+                },
+              );
+            }
+            return CircularProgressIndicator();
+          },
+        )),
       ),
     );
   }
