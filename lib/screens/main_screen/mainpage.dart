@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/booking_history_screen/booking_history.dart';
+import 'package:hasta_rental/screens/car_list_screen/car_list.dart';
 import 'package:hasta_rental/screens/customer_profile_screen/customer_profile.dart';
 import 'package:hasta_rental/screens/main_screen/log_or_sign.dart';
 import 'package:hasta_rental/services/customer_service.dart';
@@ -80,14 +82,18 @@ class _MainPage extends State<MainPage> {
 
   Future<dynamic> _changeRoute() {
     switch (_index) {
+      case 0:
+        return Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MainPage()));
+      case 1:
+        return Navigator.push(context, CarListPage.route());
+      case 2:
+        return Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BookingHistoryPage()));
       case 3:
-        if (CustomerServ.username == null) {
-          return Navigator.push(context, LogOrSign.route());
-        } else {
-          return Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CustomerProfile()));
-        }
-        break;
+        return Navigator.push(context,
+            MaterialPageRoute(builder: (context) => CustomerProfile()));
+
       default:
         return Navigator.pushNamed(context, '');
     }

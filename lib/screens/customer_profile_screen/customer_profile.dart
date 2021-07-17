@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/booking_history_screen/booking_history.dart';
+import 'package:hasta_rental/screens/car_list_screen/car_list.dart';
 import 'package:hasta_rental/screens/customer_profile_screen/edit_customer.dart';
 import 'package:hasta_rental/screens/main_screen/mainpage.dart';
 import 'package:hasta_rental/services/customer_service.dart';
@@ -8,15 +10,23 @@ import 'package:hasta_rental/widgets/endDrawer.dart';
 import 'package:hasta_rental/widgets/text_field.dart';
 
 class CustomerProfile extends StatelessWidget {
-  int _index = 3;
-
   @override
   Widget build(BuildContext context) {
+    int _index = 3;
     Future<dynamic> _changeRoute() {
       switch (_index) {
         case 0:
           return Navigator.push(
               context, MaterialPageRoute(builder: (context) => MainPage()));
+        case 1:
+          return Navigator.push(context, CarListPage.route());
+        case 2:
+          return Navigator.push(context,
+              MaterialPageRoute(builder: (context) => BookingHistoryPage()));
+        case 3:
+          return Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CustomerProfile()));
+
         default:
           return Navigator.pushNamed(context, '');
       }

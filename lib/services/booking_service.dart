@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hasta_rental/services/customer_service.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _mainCollection = _firestore.collection('booking');
@@ -40,6 +41,13 @@ class Booking {
     QuerySnapshot bookingDoc = await _mainCollection.get();
 
     return bookingDoc;
+  }
+
+  static Future<QuerySnapshot> readOne() async {
+    QuerySnapshot booking = await _mainCollection
+        .where('username', isEqualTo: CustomerServ.username)
+        .get();
+    return booking;
   }
 
   static Future<void> updateItem({

@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/booking_history_screen/booking_history.dart';
 import 'package:hasta_rental/screens/car_list_screen/car_list_vm.dart';
+import 'package:hasta_rental/screens/customer_profile_screen/customer_profile.dart';
+import 'package:hasta_rental/screens/main_screen/mainpage.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 import 'package:hasta_rental/widgets/endDrawer.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -43,8 +46,9 @@ class _CarListPage extends State<CarListPage> {
       appBar: Bar(),
       endDrawer: EndDrawer(),
       bottomNavigationBar: BottomNavigationBar(
-        //currentIndex: _index,
+        currentIndex: _index,
         type: BottomNavigationBarType.fixed,
+        onTap: _onTap,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -240,5 +244,30 @@ class _CarListPage extends State<CarListPage> {
         },
       ),
     ));
+  }
+
+  int _index = 1;
+  Future<dynamic> _changeRoute() {
+    switch (_index) {
+      case 0:
+        return Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MainPage()));
+      case 1:
+        return Navigator.push(context, CarListPage.route());
+      case 2:
+        return Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BookingHistoryPage()));
+      case 3:
+        return Navigator.push(context,
+            MaterialPageRoute(builder: (context) => CustomerProfile()));
+
+      default:
+        return Navigator.pushNamed(context, '');
+    }
+  }
+
+  void _onTap(ind) {
+    _index = ind;
+    _changeRoute();
   }
 }

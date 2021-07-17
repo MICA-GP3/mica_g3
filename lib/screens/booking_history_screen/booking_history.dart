@@ -1,9 +1,12 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hasta_rental/screens/car_list_screen/car_list.dart';
+import 'package:hasta_rental/screens/customer_profile_screen/customer_profile.dart';
+import 'package:hasta_rental/screens/main_screen/mainpage.dart';
 import 'package:hasta_rental/widgets/appbar.dart';
 import 'package:hasta_rental/screens/booking_history_screen/booking_history_vm.dart';
 import 'package:hasta_rental/services/booking_service.dart';
-import 'package:hasta_rental/screens/report_screen/report.dart';
+import 'package:hasta_rental/widgets/endDrawer.dart';
 
 class BookingHistoryPage extends StatefulWidget {
   @override
@@ -11,52 +14,40 @@ class BookingHistoryPage extends StatefulWidget {
 }
 
 class _BookingHistoryPage extends State<BookingHistoryPage> {
-  int _index = 0;
+  int _index = 2;
 
-  Future<FirebaseApp> _initialize() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp();
-    return firebaseApp;
+  Future<dynamic> _changeRoute() {
+    switch (_index) {
+      case 0:
+        return Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MainPage()));
+      case 1:
+        return Navigator.push(context, CarListPage.route());
+      case 2:
+        return Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BookingHistoryPage()));
+      case 3:
+        return Navigator.push(context,
+            MaterialPageRoute(builder: (context) => CustomerProfile()));
+
+      default:
+        return Navigator.pushNamed(context, '');
+    }
+  }
+
+  void _onTap(ind) {
+    _index = ind;
+    _changeRoute();
   }
 
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
         appBar: Bar(),
-        endDrawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              DrawerHeader(child: Text('Header')),
-              ListTile(
-                title: Text('Profile'),
-                onTap: () => {},
-              ),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.bottomCenter,
-                child: ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text("Log Out"),
-                  tileColor: Colors.amber,
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                              //title: Text("Log Out?"),
-                              content: Text("Are you sure?"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {}, child: Text("Yes")),
-                                TextButton(onPressed: () {}, child: Text("No")),
-                              ],
-                            ));
-                  },
-                ),
-              )),
-            ],
-          ),
-        ),
+        endDrawer: EndDrawer(),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _index,
+          onTap: _onTap,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
@@ -79,7 +70,7 @@ class _BookingHistoryPage extends State<BookingHistoryPage> {
         ),
         body: Container(
             child: FutureBuilder<QuerySnapshot>(
-          future: Booking.readBooking(),
+          future: Booking.readOne(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView.separated(
