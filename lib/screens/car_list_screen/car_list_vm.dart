@@ -20,7 +20,7 @@ class CarVMState extends State<CarVM> {
         future: CarSer.readCar(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Text('Connectio Error');
+            return Text('Connection Error');
           } else if (snapshot.connectionState == ConnectionState.done) {
             return Scaffold(
               appBar: Bar(),
