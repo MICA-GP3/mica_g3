@@ -83,14 +83,30 @@ class _MainPage extends State<MainPage> {
   Future<dynamic> _changeRoute() {
     switch (_index) {
       case 0:
+        if (CustomerServ.username == null) {
+          return Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LogOrSign()));
+        }
         return Navigator.push(
             context, MaterialPageRoute(builder: (context) => MainPage()));
       case 1:
+        if (CustomerServ.username == null) {
+          return Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LogOrSign()));
+        }
         return Navigator.push(context, CarListPage.route());
       case 2:
+        if (CustomerServ.username == null) {
+          return Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LogOrSign()));
+        }
         return Navigator.push(context,
             MaterialPageRoute(builder: (context) => BookingHistoryPage()));
       case 3:
+        if (CustomerServ.username == null) {
+          return Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LogOrSign()));
+        }
         return Navigator.push(context,
             MaterialPageRoute(builder: (context) => CustomerProfile()));
 
