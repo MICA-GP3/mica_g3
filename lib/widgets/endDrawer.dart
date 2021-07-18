@@ -46,7 +46,6 @@ class EndState extends State<EndDrawer> {
               child: ListTile(
                 title: Text(
                   'Search Car',
-                  //style: TextStyle(color: Colors.black38),
                 ),
                 onTap: () => Navigator.push(context, CarListPage.route()),
               ),
@@ -62,7 +61,6 @@ class EndState extends State<EndDrawer> {
                   showDialog(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                            //title: Text("Log Out?"),
                             content: Text("Are you sure?"),
                             actions: [
                               TextButton(

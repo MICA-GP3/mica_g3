@@ -35,8 +35,6 @@ class EditState extends State<EditCustomer> {
   final FocusNode emailNode = FocusNode();
   final FocusNode passwordNode = FocusNode();
 
-  bool _editing = false;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

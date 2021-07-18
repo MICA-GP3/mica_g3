@@ -31,18 +31,8 @@ class _ConfirmLoginState extends State<ConfirmLogin> {
               stream: CustomerServ.readItems(),
               builder: (context, snapshot) {
                 var chs = snapshot.data?.docs;
-                // if (chs == null) {
-                //   return AlertDialog(
-                //     content: Text('PLEASE SIGN UP'),
-                //     actions: [
-                //       TextButton(
-                //           onPressed: () => Navigator.pop(context),
-                //           child: Text('Back')),
-                //     ],
-                //   );
-                // } else
+
                 if (chs != null) {
-                  //snapshot.hasData == true && snapshot.data != null
                   var details = snapshot.data!.docs[0].data()! as Map;
                   var username = CustomerServ.username;
                   return ListView(
